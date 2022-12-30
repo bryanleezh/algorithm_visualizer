@@ -175,7 +175,7 @@
                     This maze was generated using recursion. It first creates all the surrounding walls on all 4 sides, before moving on to the actual recursion itself
                 </p>
                 <p class="expdescription">
-                    In order to create the rest of the maze, based on its parameters of either horizontal or vertical, it will generate a random row and column, and using that particular coordinates from the grid, it will generate walls for every coordinate in that row other than that one random coordinate
+                    In order to create the rest of the maze, based on its parameters of either horizontal or vertical, it will generate a random row and column, and using that particular coordinates from the grid, it will generate walls for every coordinate in that row or column other than that one random coordinate
                 </p>
                 <p class="expdescription">
                     This is done recursively again and again until the entire grid is populated
