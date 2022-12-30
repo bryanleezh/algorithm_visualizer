@@ -1,0 +1,716 @@
+/* navbar css */
+.marioimage{
+    height:16px;
+    width: 16px;
+    margin-left: 10px;
+}
+.chaptername {
+    text-transform: capitalize;
+}
+.exp {
+  width: 90%;
+  margin: auto;
+}
+#drops {
+  background-color: gainsboro ;
+  border: none;
+  height: 40px;
+  padding-left: 40px ;
+
+}
+
+#chapterdropdown {
+  text-align: center;
+}
+
+#navlogo{
+    width: 7%;
+    padding-top: 25px;
+    padding-left: 25px ;
+}
+#mainnavbar{
+    padding-bottom: 20px; 
+}
+
+#navbar {
+    /* position: absolute; */
+    list-style: none;
+    text-decoration: none;
+    width: 100%;
+    background-color: #5d91fe;
+}
+#bigheader{
+    font-size: 2.5rem;
+}
+
+.intro {
+    margin: auto;
+    width: 85%;
+}
+#mariovid {
+    width: 100%;
+}
+
+.nav_chapter{
+    margin-top: 2px;
+    margin-left: 5px;
+
+    background-image: linear-gradient(
+        to right,
+        #FBD000,
+        #FBD000 50%,
+        black 50%
+        );
+    
+    background-size: 200% 100%;
+    background-position: -100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+#navbar a {
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding-right: 20px;
+    padding-left: 20px;
+    background-image: linear-gradient(
+    to right,
+    #FBD000,
+    #FBD000 50%,
+    black 50%
+    );
+
+    background-size: 200% 100%;
+    background-position: -100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+#navbar a:before {
+    content: '';
+    /* background: #54b3d6; */
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 3px;
+}
+
+#navbar a:hover {
+    /* make font big */
+    background-position: 0;
+}
+
+#navbar a:hover::before {
+    width: 100%;
+}
+
+li {
+    font-family: mario;
+    font-size: 16px;
+    color: black;
+    display: inline;
+    float: left;
+    text-align: center;
+}
+
+
+
+
+/* homepage styling */
+.card{
+  color: black;
+}
+.card-text {
+  font-family: "Roboto-Light";
+}
+@font-face {
+    font-family: 'Roboto-Light';
+    src: url('./fonts/roboto/Roboto-Light.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto-Thin';
+    src: url('./fonts/roboto/Roboto-Thin.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto-Regular';
+    src: url('./fonts/roboto/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'integral';
+    src: url('./fonts/integral/OTF/IntegralCF-DemiBold.otf');
+}
+
+@font-face {
+    font-family: 'mario';
+    src: url('./fonts/mario/SuperMarioWorldTextBoxRegular-Y86j.ttf');
+}
+
+body {
+    background-image: url('../styling/background2.png');
+    background-size: contain;
+    background-repeat: repeat-y; 
+    background-position: center top;
+}
+.col-form-label {
+  color: black;
+}
+#first {
+    font-family: 'integral';
+    padding-bottom: 30px;
+    color: black;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#second {
+  font-family: 'integral';
+  padding-bottom: 30px;
+  padding-top: 100px;
+  color: black;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+}
+#third {
+  font-family: 'integral';
+  /* padding-bottom: 30px; */
+  color: black;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+}
+
+#features {
+    font-family: 'mario';
+    color: black;
+    font-weight: bold;
+    font-size: 90%;
+    width: 100%;
+}
+#homedescription{
+    text-align: center;
+}
+#second {
+    /* font-family: 'Roboto-Regular'; */
+    font-family: 'mario';
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 15px;
+    margin: 0;
+    color: black;
+}
+
+video {
+    width: 500px; 
+    height: auto ;
+    display: block;
+    margin: auto;
+    padding: 20px;
+}
+
+.reviewDisp {
+    padding: 20px;
+    padding-bottom: 50px;
+}
+
+.star {
+    width: 50px;
+}
+
+.star2 {
+    width: 30px;
+}
+
+.modal-content {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    /* width: 800px;
+    margin: auto; */
+}
+
+label {
+    font-weight: bold;
+    font-family: 'Roboto-Light';
+    /* font-family: 'mario'; */
+}
+
+#reviewBtn {
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #9F39E5;
+    font-family: 'mario';
+}
+
+#review {
+    padding-bottom: 50px;
+}
+
+
+
+/* algo styling */
+/* navbar styling */
+
+#navbarButton {
+    font-family: "mario";
+    color: white;
+    background-color: #362b49;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+#navbarButton:hover {
+    color: #25a25a;
+}
+
+#lastButton {
+    color: #ffffff;
+    background-color: #4f3b73;
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
+  }
+
+  a {
+    color: #16a085;
+    text-decoration: none;
+    -webkit-transition: .25s;
+            transition: .25s;
+  }
+  a:hover,
+  a:focus {
+    color: #1abc9c;
+    text-decoration: none;
+  }
+  a:focus {
+    outline: none;
+  }
+
+  .btn {
+    border: none;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.4;
+    border-radius: 4px;
+    padding: 10px 15px;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-transition: border 0.25s linear, color 0.25s linear, background-color 0.25s linear;
+            transition: border 0.25s linear, color 0.25s linear, background-color 0.25s linear;
+  }
+  .btn:hover,
+  .btn:focus {
+    outline: none;
+    color: #ffffff;
+  }
+
+  .btn-default {
+    color: #ffffff;
+    background-color: #bdc3c7;
+  }
+
+   /* tutorial styling */
+  #nextButton {
+    color: #ffffff;
+    background-color: #4f3b73;
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
+  }
+  
+  #previousButton {
+    color: #ffffff;
+    background-color: #4f3b73;
+    position: absolute;
+    right: 12%;
+    bottom: 2%;
+  }
+
+  #modalButton{
+    color: #ffffff;
+    background-color: #4f3b73;
+  }
+  #skipButton {
+    color: #ffffff;
+    background-color: #4f3b73;
+    position: absolute;
+    left: 2%;
+    bottom: 2%;
+  }
+  
+  #finishButton {
+    color: #ffffff;
+    background-color: #4f3b73;
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
+  }
+  
+  #finishButton:hover,
+  #nextButton:hover,
+  #previousButton:hover,
+  #skipButton:hover {
+    background-color: #664a9a;
+  }
+  
+  #mainTutorialImage {
+    width: 25%;
+    padding-top: 5px;
+  }
+  #tutorial > h3 {
+    padding-bottom: 5px;
+    text-align: center;
+  }
+  
+  #tutorial > h6 {
+    padding: 5px 25px 5px 25px;
+    text-align: center;
+  }
+  
+  #tutorial > p {
+    padding: 5px 30px 5px 30px;
+    text-align: justify;
+  }
+  
+/* grid styling */
+
+#default {
+    background-color:rgb(12,53,71);
+}
+
+#whitebackground {
+    background-color: white;
+}
+table {
+    border: 1px solid;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 20px;
+    background-color:rgb(12,53,71)
+
+}
+td {
+    border: 1px solid;
+    border-color: rgb(12, 69, 71);
+    height: 25px;
+    /* background-color:rgb(12,53,71) */
+
+}
+
+.norm {
+    background-color:rgb(12,53,71)
+      
+}
+
+.shortest-path-right{
+    background:url(coin.png);
+    background-color:rgb(12,53,71);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    animation-name: triangletwo;
+    animation-duration: 1.5s;
+    animation-timing-function: linear;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+
+  .instantshortest-path-right{
+    background:url(mario2.png);
+    background-color:rgb(12,53,71);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+
+
+  /* all visited node stylings */
+  .instantvisited{
+    border: 1px solid rgb(175, 216, 248);
+    background-color: rgba(0, 190, 218, 0.75);
+  }
+
+  .visited{
+    /* border: 1px solid rgb(175, 216, 248); */
+    animation-name: visitedAnimation;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+  .visited2{
+    /* border: 1px solid rgb(175, 216, 248); */
+    animation-name: visitedAnimation2;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+
+  @keyframes visitedAnimation {
+    0% {
+      transform: scale(.3);
+      /* background-color: rgba(0, 0, 66, 0.75); */
+      background-color: #E52521;
+      border-radius: 100%;
+    }
+    25% {
+        background-color: #e55921;
+    }
+
+    50% {
+      /* background-color: rgba(17, 104, 217, 0.75); */
+      background-color: #e58021;
+    }
+  
+    75% {
+      transform: scale(1.2);
+      /* background-color: rgba(0, 217, 159, 0.75) */
+      background-color: #e55921;
+    }
+  
+    100% {
+      transform: scale(1.0);
+      /* background-color: rgba(0, 190, 218, 0.75); */
+      background-color: #E52521;
+    }
+  }
+
+  @keyframes visitedAnimation2 {
+    0% {
+      transform: scale(.3);
+      /* background-color: rgba(0, 0, 66, 0.75); */
+      background-color: #43B047;
+      border-radius: 100%;
+    }
+
+    25% {
+        background-color: #43b06b;
+    }
+    50% {
+        background-color: #43b0a5;
+    }
+  
+    75% {
+      transform: scale(1.2);
+      background-color: #43b06b;
+    }
+  
+    100% {
+      transform: scale(1.0);
+      background-color: #43B047;
+    }
+  }
+
+  /* all walls styling */
+  /* table .shortest-path{
+    background-color: rgb(12,53,71);
+  } */
+  .wall{
+    background-color: white;
+    background-size: contain;
+    background-image: url(mario-brick.png);
+    animation-name: wallAnimation;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+  
+  @keyframes wallAnimation {
+    0% {
+      transform: scale(.3);
+    }
+  
+    50% {
+      transform: scale(1.2);
+    }
+  
+    100% {
+      transform: scale(1.0);
+    }
+  }
+
+/* start node */
+.start{
+    background-image:url(mario2.png);
+    background-color: rgb(12,53,71);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    animation-name: specialNodes;
+    animation-duration: 2.0s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+  .start2{
+    background-image:url(luigi.png);
+    background-color: rgb(12,53,71);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    animation-name: specialNodes;
+    animation-duration: 2.0s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+
+  .movingstart{
+    background-image: url(mario2.png);
+    background-color: rgb(12,53,71);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .movingstart2{
+    background-image: url(luigi.png);
+    background-color: rgb(12,53,71);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+/* target node */
+  .target{
+    background-image: url(princess-peach.png);
+    background-color: rgb(12,53,71);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    animation-name: specialNodes;
+    animation-duration: 2.0s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+
+  .movingend{
+    background-image: url(princess-peach.png);
+    background-color: rgb(12,53,71);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .movingend2{
+    background-image: url(princess-daisy.png);
+    background-color: rgb(12,53,71);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .target2{
+    background-image: url(princess-daisy.png);
+    background-color: rgb(12,53,71);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    animation-name: specialNodes;
+    animation-duration: 2.0s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+  @keyframes specialNodes {
+    0% {
+      transform: scale(.3);
+    }
+  
+    50% {
+      transform: scale(1.2);
+    }
+  
+    100% {
+      transform: scale(1.0);
+    }
+  }
+  
+  /* shortest path styling */
+  .instantshortest-path{
+    background-color:rgb(12,53,71);
+  }
+
+  .shortest-path{
+    background-color:rgb(12,53,71);
+    animation-name: triangletwo;
+    animation-duration: 1.5s;
+    animation-timing-function: linear;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+
+  @keyframes triangletwo {
+    0% {
+      transform: scale(.6);
+      background-color:rgb(12,53,71);
+    }
+  
+    50% {
+      transform: scale(1.2);
+      background-color:rgb(12,53,71);
+    }
+  
+    100% {
+      transform: scale(1.0);
+      background-color:rgb(12,53,71);
+    }
+  }
+
+
+

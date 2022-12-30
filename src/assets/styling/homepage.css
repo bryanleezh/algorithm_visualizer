@@ -1,0 +1,78 @@
+@font-face {
+    font-family: 'Roboto-Light';
+    src: url('roboto/Roboto-Light.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto-Thin';
+    src: url('roboto/Roboto-Thin.ttf');
+}
+
+body {
+    background-color: #f2f5fe;
+    margin: 0;
+}
+
+#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+}
+
+#logo {
+    width: 30px;
+    height: auto;
+    padding: 0;
+}
+
+li {
+    float: left;
+  }
+  
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-family: 'Roboto-Light';
+    font-size: 90%;
+}
+
+li a:hover {
+    background-color: rgb(212, 212, 212);
+}
+
+#first {
+    font-family: 'Roboto-Thin';
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#second {
+    font-family: 'Roboto-Thin';
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0;
+}
+
+#col-2 {
+    font-family: 'Roboto-Light';
+}
+
+video {
+    width: 600px; 
+    height: auto ;
+    display: block;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.reviews {
+    padding: 20px;
+    padding-bottom: 50px;
+}
