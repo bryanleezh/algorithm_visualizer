@@ -149,10 +149,10 @@
                         <button class="btn navbar-btn me-auto" v-on:click="resetboard()">Clear All</button>
                     </li>
                     <li class="nav-item ">
-                        <button class="btn navbar-btn me-auto" v-on:click="generateNewmaze()">Random Maze</button>
+                        <button class="btn navbar-btn me-auto" v-on:click="generateNewmaze()">Random Recursive Maze (Horizontal)</button>
                     </li>
                     <li class="nav-item">
-                        <button class="btn navbar-btn me-auto" v-on:click="generateSecondmaze()">Random Maze</button>
+                        <button class="btn navbar-btn me-auto" v-on:click="generateSecondmaze()">Random Recursive Maze (Vertical)</button>
                     </li>
                 </ul>
             </div>
@@ -171,13 +171,13 @@
         <div class="row">
             <div class="jumbotron col-lg-12 col-md-12 col-sm-12">
                 <h4>Explanation</h4>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     This maze was generated using recursion. It first creates all the surrounding walls on all 4 sides, before moving on to the actual recursion itself
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     In order to create the rest of the maze, based on its parameters of either horizontal or vertical, it will generate a random row and column, and using that particular coordinates from the grid, it will generate walls for every coordinate in that row other than that one random coordinate
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     This is done recursively again and again until the entire grid is populated
                 </p>
             </div>
@@ -188,42 +188,42 @@
         <div class="row">
             <div class="jumbotron col-lg-8 col-md-6 col-sm-12" id="explanation">
                 <h4>Explanation</h4>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     Dijkstras algorithm is an algorithm used for finding the shortest path within a weighted graph, from a starting node to a destination node. 
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     This algorithm visits all nodes in a graph in sequence starting from the start node, recording the shortest distance needed to reach each node as it visits them, as well as the path it took to achieve said minimum distance.
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     After visiting all possible nodes, the algorithm then checks whether or not it is able to reach the destination node. If found possible, it will then start from the destination node and backtrack through the path taken in order to reach the node, thereby finding the path required to achieve the shortest distance. 
                 </p>
                 
             </div>
             <div class="jumbotron col-lg-4 col-md-6 col-sm-12">
                 <h4>Pseudocode</h4>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     1. Mark all nodes as unvisited and set their distance to infinity
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     2. Pick the starting node, select it as the currently visited node and set its distance to 0
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     3. Analyse all the currently visited node&#39;s unvisited adjacent neighbours and record their distances by adding the distance taken to reach the currently visited node to the distance required to reach the adjacent neighbour node
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     4. Compare the newly calculated distance of each neighbour node to the distance currently assigned to said neighbour node, replacing it if its lower and assigning it the path taken to reach said node
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     5. After analysing all of the current node&#39;s unvisited adjacent neighbours, mark the current node as visited
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     6. If the current node is the destination node, stop the algorithm and backtrack through the path taken to reach said node, retrieving the shortest path possible
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     7. 
                     Else, choose the neighbouring nodes with the shortest distance from the current node, selecting it as the new currently visited node and repeat steps 3 to 6
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     8. When all nodes have been visited without the destination node being found, the destination node is concluded to be inaccessible from the start node
                 </p>
             </div>
@@ -233,28 +233,28 @@
         <div class="row">
             <div class="jumbotron col-lg-8 col-md-6 col-sm-12">
                 <h4>Explanation</h4>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     Depth-first search is an algorithm for traversing or searching tree or graph data structures. The algorithm starts at a root node and explores as far as possible along each branch or direction before backtracking and changing directions. 
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     The algorithm will continually iterate until it finds a target node or if all possible nodes have been visited
                 </p>
             </div>
             <div class="jumbotron col-lg-4 col-md-6 col-sm-12">
                 <h4>Pseudocode</h4>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     1. Start with root node as the currently visited node and mark it as visited
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     2. Record the previous node of all adjacent nodes as the currently visited node and push all adjacent nodes into a stack
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     3. Pop the latest node from the stack and select it as currently visited node
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     4. If the currently selected node is the target node, iterate through its previous nodes to get the shortest path
                 </p>
-                <p style="font-size: 100%; text-align: justify">
+                <p class="expdescription">
                     5. Else, repeat steps 2 to 4
                 </p>
             </div>
@@ -896,7 +896,7 @@ export default {
             this.width = window.innerWidth
             this.cols = Math.floor(0.9*window.innerWidth/25)
         }
-        this.generateNewmaze()
+        // this.generateNewmaze()
     }
 };
 </script>

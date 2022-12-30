@@ -9,17 +9,13 @@
   
   <div id="features" >
       <div class="row justify-content-center w-100">
-          <div class="col-lg-3 col-md-6">
+          <div class="col-lg-6 col-md-6">
               <p id="homedescription"> 
                 👀 Visualise Algorithms </p>
           </div>
-          <div class="col-lg-3 col-md-6">
+          <div class="col-lg-6 col-md-6">
               <p id="homedescription"> 
                 🧮 Access Class Content </p>
-          </div>
-          <div class="col-lg-3 col-md-6">
-              <p id="homedescription">  
-                📝 Practice Questions </p>
           </div>
       </div>
   </div>

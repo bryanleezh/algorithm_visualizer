@@ -1,16 +1,13 @@
 /* navbar css */
 .marioimage{
-    height:16px;
-    width: 16px;
+    height:32px;
+    width: 32px;
     margin-left: 10px;
 }
 .chaptername {
     text-transform: capitalize;
 }
-.exp {
-  width: 90%;
-  margin: auto;
-}
+
 #drops {
   background-color: gainsboro ;
   border: none;
@@ -118,9 +115,6 @@ li {
     float: left;
     text-align: center;
 }
-
-
-
 
 /* homepage styling */
 .card{
@@ -263,7 +257,6 @@ label {
 
 /* algo styling */
 /* navbar styling */
-
 #navbarButton {
     font-family: "mario";
     color: white;
@@ -319,6 +312,16 @@ label {
   .btn-default {
     color: #ffffff;
     background-color: #bdc3c7;
+  }
+
+  .exp {
+    width: 90%;
+    margin: auto;
+    font-family: mario;
+  }
+  .expdescription{
+    font-size: 100%;
+    text-align: justify;
   }
 
    /* tutorial styling */
@@ -437,20 +440,6 @@ td {
     background-repeat: no-repeat;
     background-size: contain;
   }
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
- 
-
 
   /* all visited node stylings */
   .instantvisited{
