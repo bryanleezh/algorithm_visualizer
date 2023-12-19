@@ -9,8 +9,11 @@ https://algorithm-visualizer-tau-amber.vercel.app/
 ## Features
 
 _Finding Shortest Path_: Each algorithm will run through the maze from the start to end node, upon reaching the end node, it will run through all visited nodes and find the shortest path to the end node
+
 _Movable Start & End Nodes_: Both nodes can be moved to any desired position on the grid
+
 _Dynamic Walls_: Clicking/Click & Dragging on an empty node will create wall nodes, in which each algorithm will not traverse
+
 _Recursive Maze_: Random mazes can be generated, through recursion, which would populate the entire grid
 
 ## Expansion
