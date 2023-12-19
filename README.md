@@ -5,6 +5,7 @@ Built entirely in Vue.js, this website allows users to understand more about alg
 https://algorithm-visualizer-tau-amber.vercel.app/
 
 ## Demo
+![](./src/components/Demo/Demo.gif)
 
 ## Features
 
