@@ -1,163 +1,38 @@
 <template>
     <div>
         <div id="third" class="d-flex">
-        <h1 id="bigheader">
-            <span>Let's Visualise!!</span>
-        </h1>
-    </div>
-    <nav id="second" class="navbar navbar-expand-lg">
-        <div class="container-fluid d-flex" style="margin-left: 5%; margin-right:5%">
-            <div class="float-left" id="mycustommodal tutorial">
-                <div class="modal fade" id="tutorialpage1" aria-hidden="true" aria-labelledby="tutorialpage1Label" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 mx-auto" id="tutorialpage1Label">Welcome to Algorithm Visualiser!</h1>
-                            </div>
-                            <div class="modal-body">
-                                <h6>We'll take you through a short tutorial and show you the features available in this application.</h6>
-                                <img id="mainTutorialImage" src="../assets/styling/welcomeicon.png">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="skipButton" class="btn btn-default navbar-btn" data-bs-dismiss="modal">Close</button>
-                                <button id="modalButton" class="btn btn-default navbar-btn" data-bs-target="#tutorialpage2" data-bs-toggle="modal">Next</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="tutorialpage2" aria-hidden="true" aria-labelledby="tutorialpage2Label" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 mx-auto" id="tutorialpage2Label">What is a pathfinding algorithm?</h1>
-                            </div>
-                            <div class="modal-body">
-                                <h6>A pathfinding algorithm explores routes between nodes and ultimately seeks to find the shortest path between 2 points</h6>
-                                <img id="mainTutorialImage" src="../assets/styling/destination.png">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="skipButton" class="btn btn-default navbar-btn" data-bs-dismiss="modal">Close</button>
-                                <button id="modalButton" class="btn btn-default navbar-btn" data-bs-target="#tutorialpage1" data-bs-toggle="modal">Previous</button>
-                                <button id="modalButton" class="btn btn-default navbar-btn" data-bs-target="#tutorialpage3" data-bs-toggle="modal">Next</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="tutorialpage3" aria-hidden="true" aria-labelledby="tutorialpage3Label" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 mx-auto" id="tutorialpage3Label">Algorithms Offered</h1>
-                            </div>
-                            <div class="modal-body">
-                                <h6>Select an algorithm you would like to learn about from the "Algorithm" drop-down menu</h6>
-                                Our application currently supports these algorithms
-                                <div class="container-fluid">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-6">Dijkstra's Algo</div>
-                                        <div class="col-md-6">Depth-First Search</div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="skipButton" class="btn btn-default navbar-btn" data-bs-dismiss="modal">Close</button>
-                                <button id="modalButton" class="btn btn-default navbar-btn" data-bs-target="#tutorialpage2" data-bs-toggle="modal">Previous</button>
-                                <button id="modalButton" class="btn btn-default navbar-btn" data-bs-target="#tutorialpage4" data-bs-toggle="modal">Next</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="tutorialpage4" aria-hidden="true" aria-labelledby="tutorialpage4Label" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 mx-auto" id="tutorialpage4Label">Add Ons</h1>
-                            </div>
-                            <div class="modal-body">
-                                <b>Walls:</b> Impenetrable nodes that a path cannot cross
-                                <br>
-                                Access these additional features via the visualizer navbar
-                                Click and drag on the start and target nodes to move them!!
-                                <br>
-                                <div class="container-fluid">
-                                    <div class="row align-items-center">
-                                        <div><img id="mainTutorialImage" src="../assets/styling/wall.png"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="skipButton" class="btn btn-default navbar-btn" data-bs-dismiss="modal">Close</button>
-                                <button id="modalButton" class="btn btn-default navbar-btn" data-bs-target="#tutorialpage3" data-bs-toggle="modal">Previous</button>
-                                <button id="modalButton" class="btn btn-default navbar-btn" data-bs-target="#tutorialpage5" data-bs-toggle="modal">Next</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="tutorialpage5" aria-hidden="true" aria-labelledby="tutorialpage5Label" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 mx-auto" id="tutorialpage4Label">Extra Features!</h1>
-                            </div>
-                            <div class="modal-body">
-                                <h6>Use the navbar buttons to clear different objects</h6>
-                                You can clear the current path, walls and the entire board!
-                                <br>
-                                If you want to access this tutorial again, click on "Tutorial" button below the navbar!
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="skipButton" class="btn btn-default navbar-btn" data-bs-dismiss="modal">Close</button>
-                                <button id="modalButton" class="btn btn-default navbar-btn" data-bs-target="#tutorialpage4" data-bs-toggle="modal">Previous</button>
-                                <button id="modalButton" class="btn btn-default navbar-btn" data-bs-target="#tutorialpage6" data-bs-toggle="modal">Next</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="tutorialpage6" aria-hidden="true" aria-labelledby="tutorialpage6Label" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 mx-auto" id="tutorialpage6Label">You are all set!</h1>
-                            </div>
-                            <div class="modal-body">
-                                <h6>Have fun learning and visualising the algorithms!!</h6>
-                                <img id="mainTutorialImage" src="../assets/styling/welcomeicon.png">
-                            </div>
-                            <div class="modal-footer">
-                                <button id="modalButton" class="btn btn-default navbar-btn" data-bs-target="#tutorialpage5" data-bs-toggle="modal">Previous</button>
-                                <button id="modalButton" class="btn btn-default navbar-btn" data-bs-dismiss="modal">Finish</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a id="navbarButton" class="btn btn-primary" data-bs-toggle="modal" href="#tutorialpage1" role="button">Tutorial</a>
-            </div>
-            
-            <button class="navbar-toggler float-right" style="margin-right: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse mb-2 mb-lg-0" style="margin-right: 0px;" id="navbarNav">
-                <ul class="navbar-nav d-flex align-items-center" style="background-color:#5d91fe">
-                    <li class="nav-item" >
-                        <button class="btn navbar-btn me-auto" v-on:click="visualiseDijkstra()">Dijkstra</button>
-                    </li>
-                    <li class="nav-item ">
-                        <button class="btn navbar-btn me-auto" v-on:click="visualiseDFS()">DFS</button>
-                    </li>
-                    <li class="nav-item ">
-                        <button class="btn navbar-btn me-auto" v-on:click="resetboard()">Clear All</button>
-                    </li>
-                    <li class="nav-item ">
-                        <button class="btn navbar-btn me-auto" v-on:click="generateNewmaze()">Random Recursive Maze (Horizontal)</button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="btn navbar-btn me-auto" v-on:click="generateSecondmaze()">Random Recursive Maze (Vertical)</button>
-                    </li>
-                </ul>
-            </div>
+            <h1 id="bigheader">
+                <span>Let's Visualise!!</span>
+            </h1>
         </div>
-    </nav>
+        <nav id="second" class="navbar navbar-expand-lg">
+            <div class="container-fluid d-flex" style="margin-left: 5%; margin-right:5%">
+                <!-- Tutorial Modals -->
+                <Tutorial />
+                <button class="navbar-toggler float-right" style="margin-right: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse mb-2 mb-lg-0" style="margin-right: 0px;" id="navbarNav">
+                    <ul class="navbar-nav d-flex align-items-center" style="background-color:#5d91fe">
+                        <li class="nav-item" >
+                            <button class="btn navbar-btn me-auto" v-on:click="visualiseDijkstra()">Dijkstra</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="btn navbar-btn me-auto" v-on:click="visualiseDFS()">DFS</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="btn navbar-btn me-auto" v-on:click="resetboard()">Clear All</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="btn navbar-btn me-auto" v-on:click="generateHorizontalRecursiveMaze()">Random Recursive Maze (Horizontal)</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn navbar-btn me-auto" v-on:click="generateVerticalRecursiveMaze()">Random Recursive Maze (Vertical)</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </div>
     
     <table :id="this.boardGrid">
@@ -265,6 +140,7 @@
 
 import {dijkstra, getNodesInShortestPathOrder, dfs} from './pathfindingAlgorithms/dijkstra.js'
 import { recursiveDivisionMaze } from './pathfindingAlgorithms/mazeAlgo.js'
+import Tutorial from './Tutorial.vue';
 
 export default {
     data() {
@@ -294,6 +170,9 @@ export default {
         }
     },
     name: 'boardGrid',
+    components: {
+        Tutorial
+    },
     methods: {
         movingElements(row, col){
             if (this.castTwo){
@@ -685,7 +564,7 @@ export default {
                 }
             }
         },
-        generateNewmaze() {
+        generateHorizontalRecursiveMaze() {
             this.boardGrid = 'whitebackground'
             if (this.mazeGenerated == false){
                 this.mazeStillGenerating = true
@@ -722,13 +601,13 @@ export default {
             }
             else {
                 this.resetboard()
-                this.generateNewmaze()
+                this.generateHorizontalRecursiveMaze()
             }
             this.castTwo = false
             this.nodes[this.isStart[0]][this.isStart[1]].status = 'start'
             this.nodes[this.isEnd[0]][this.isEnd[1]].status = 'target'
         },
-        generateSecondmaze() {
+        generateVerticalRecursiveMaze() {
             this.boardGrid = 'whitebackground'
             if (this.mazeGenerated == false){
                 this.mazeStillGenerating = true
@@ -766,7 +645,7 @@ export default {
             }
             else {
                 this.resetboard()
-                this.generateNewmaze()           
+                this.generateVerticalRecursiveMaze()           
             }
             this.castTwo = true
             this.nodes[this.isStart[0]][this.isStart[1]].status = 'start2'
@@ -896,7 +775,7 @@ export default {
             this.width = window.innerWidth
             this.cols = Math.floor(0.9*window.innerWidth/25)
         }
-        // this.generateNewmaze()
+        // this.generateHorizontalRecursiveMaze()
     }
 };
 </script>
