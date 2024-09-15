@@ -117,10 +117,13 @@
 </template>
 <script>
 
-import {dijkstra, getNodesInShortestPathOrder, dfs} from './pathfindingAlgorithms/dijkstra.js'
+import {dijkstra, getNodesInShortestPathOrder, dfs} from './pathfindingAlgorithms/algos.js'
 import { recursiveDivisionMaze } from './pathfindingAlgorithms/mazeAlgo.js'
-import Tutorial from './Tutorial.vue';
 import NavBar from './NavBar.vue';
+import { visualiseDijkstra, visualiseInstantDijkstra } from './GridMethods/dijkstraMethods.js';
+import AlgoVisualizerVue from '@/views/AlgoVisualizer.vue';
+import { generateHorizontalRecursiveMaze, generateVerticalRecursiveMaze } from './GridMethods/generateMazeMethods.js';
+import { visualiseDFS, visualiseInstantDFS } from './GridMethods/dfsMethods.js';
 
 export default {
     data() {
@@ -151,7 +154,6 @@ export default {
     },
     name: 'boardGrid',
     components: {
-        Tutorial,
         NavBar
     },
     methods: {
@@ -396,83 +398,16 @@ export default {
             }
         },
         visualiseInstantDijkstra(){
-            let startNode = [];
-            let finishNode = [];
-            
-            startNode = this.nodes2[this.isStart[0]][this.isStart[1]];
-            finishNode = this.nodes2[this.isEnd[0]][this.isEnd[1]];
-
-            this.visitedNodesInOrder = dijkstra(this.nodes2, startNode, finishNode);
-            this.nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-            this.instantDijkstra(this.visitedNodesInOrder, this.nodesInShortestPathOrder);
-            this.visitedNodesInOrder= []
-            this.nodesInShortestPathOrder = []
-
-            this.djikstraDone = true
-            this.algoDone = true
+            visualiseInstantDijkstra(this);
         },
         visualiseDijkstra(){
-
-            if (this.mazeStillGenerating){
-                alert("Maze is still generating! Please wait!")
-                return
-            }
-            if (this.algoDone){
-                alert('Algo has been visualised!')
-                return
-            }
-            let startNode = [];
-            let finishNode = [];
-            
-            startNode = this.nodes2[this.isStart[0]][this.isStart[1]];
-            finishNode = this.nodes2[this.isEnd[0]][this.isEnd[1]];
-            this.visitedNodesInOrder = dijkstra(this.nodes2, startNode, finishNode);
-            this.nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-
-            this.animateDijkstra(this.visitedNodesInOrder, this.nodesInShortestPathOrder);
-            this.visitedNodesInOrder= []
-            this.nodesInShortestPathOrder = []
-
-            this.djikstraDone = true
-            this.algoDone = true
+            visualiseDijkstra(this);
         },
         visualiseInstantDFS(){
-            let startNode = [];
-            let finishNode = [];
-            
-            startNode = this.nodes2[this.isStart[0]][this.isStart[1]];
-            finishNode = this.nodes2[this.isEnd[0]][this.isEnd[1]];
-            this.visitedNodesInOrder = dfs(this.nodes2, startNode, finishNode, this.rows, this.cols);
-            this.nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-            this.instantDijkstra(this.visitedNodesInOrder, this.nodesInShortestPathOrder);
-            this.visitedNodesInOrder= []
-            this.nodesInShortestPathOrder = []
-
-            this.dfsDone = true
-            this.algoDone = true
+            visualiseInstantDFS(this);
         },
         visualiseDFS(){
-            if (this.mazeStillGenerating){
-                alert("Maze is still generating! Please wait!")
-                return
-            }
-            if (this.algoDone){
-                alert('Algo has been visualised!')
-                return
-            }
-            let startNode = [];
-            let finishNode = [];
-            
-            startNode = this.nodes2[this.isStart[0]][this.isStart[1]];
-            finishNode = this.nodes2[this.isEnd[0]][this.isEnd[1]];
-            this.visitedNodesInOrder = dfs(this.nodes2, startNode, finishNode, this.rows, this.cols);
-            this.nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-            this.animateDijkstra(this.visitedNodesInOrder, this.nodesInShortestPathOrder);
-            this.visitedNodesInOrder= []
-            this.nodesInShortestPathOrder = []
-
-            this.dfsDone = true
-            this.algoDone = true
+            visualiseDFS(this);
         },
         animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
             for (let i = 0; i <= visitedNodesInOrder.length; i++) {
@@ -546,91 +481,10 @@ export default {
             }
         },
         generateHorizontalRecursiveMaze() {
-            this.boardGrid = 'whitebackground'
-            if (this.mazeGenerated == false){
-                this.mazeStillGenerating = true
-                console.log("maze generating")
-                recursiveDivisionMaze(this.mazewalls ,this.isStart, this.isEnd, this.rows, this.cols, this.nodes, this.nodes2, 2, this.rows-3, 2, this.cols-3, 'horizontal', false )
-                let startrowfront = Number(this.isStart[0])
-                let startcolfront = Number(this.isStart[1]) +1
-                let endrowfront = Number(this.isEnd[0])
-                let endcolfront = Number(this.isEnd[1]) +1
-                for (let i=0; i<this.mazewalls.length; i++) {
-                    setTimeout(() => {
-                        let coord = this.mazewalls[i]
-                        if (this.nodes[coord[0]][coord[1]].status != 'start' && this.nodes[coord[0]][coord[1]].status != 'target' ){
-                        this.nodes[coord[0]][coord[1]].status = 'wall'
-                        this.nodes2[coord[0]][coord[1]].status = 'wall'
-                    }
-                    }, 10* i);
-                }
-                if (this.nodes[startrowfront][startcolfront].status == 'wall'){
-                    this.nodes[startrowfront][startcolfront].status = 'norm'
-                    this.nodes2[startrowfront][startcolfront].status = 'norm'
-                }
-                if (this.nodes[endrowfront][endcolfront].status == 'wall'){
-                    this.nodes[endrowfront][endcolfront].status = 'norm'
-                    this.nodes2[endrowfront][endcolfront].status = 'norm'
-                }
-                this.mazeGenerated = true
-                setTimeout(() => {
-                    this.mazeStillGenerating = false;
-                    console.log('maze done')
-                    this.boardGrid = 'default'
-                }, this.mazewalls.length * 10)
-                
-            }
-            else {
-                this.resetboard()
-                this.generateHorizontalRecursiveMaze()
-            }
-            this.castTwo = false
-            this.nodes[this.isStart[0]][this.isStart[1]].status = 'start'
-            this.nodes[this.isEnd[0]][this.isEnd[1]].status = 'target'
+            generateHorizontalRecursiveMaze(this);
         },
         generateVerticalRecursiveMaze() {
-            this.boardGrid = 'whitebackground'
-            if (this.mazeGenerated == false){
-                this.mazeStillGenerating = true
-                console.log("maze generating")
-                recursiveDivisionMaze(this.mazewalls ,this.isStart, this.isEnd, this.rows, this.cols, this.nodes, this.nodes2, 2, this.rows-3, 2, this.cols-3, 'vertical', false )
-                let startrowfront = Number(this.isStart[0])
-                let startcolfront = Number(this.isStart[1]) +1
-                let endrowfront = Number(this.isEnd[0])
-                let endcolfront = Number(this.isEnd[1]) +1
-
-                for (let i=0; i<this.mazewalls.length; i++) {
-                    setTimeout(() => {
-                        const coord = this.mazewalls[i]
-                        if (this.nodes[coord[0]][coord[1]].status != 'start' && this.nodes[coord[0]][coord[1]].status != 'target' ){
-                        this.nodes[coord[0]][coord[1]].status = 'wall'
-                        this.nodes2[coord[0]][coord[1]].status = 'wall'
-                    }
-                    }, 10* i);
-                }
-                
-                if (this.nodes[startrowfront][startcolfront].status == 'wall'){
-                    this.nodes[startrowfront][startcolfront].status = 'norm'
-                    this.nodes2[startrowfront][startcolfront].status = 'norm'
-                }
-                if (this.nodes[endrowfront][endcolfront].status == 'wall'){
-                    this.nodes[endrowfront][endcolfront].status = 'norm'
-                    this.nodes2[endrowfront][endcolfront].status = 'norm'
-                }
-                this.mazeGenerated = true
-                setTimeout(() => {
-                    this.mazeStillGenerating = false;
-                    console.log('maze done')
-                    this.boardGrid = 'default'
-                }, this.mazewalls.length * 10)
-            }
-            else {
-                this.resetboard()
-                this.generateVerticalRecursiveMaze()           
-            }
-            this.castTwo = true
-            this.nodes[this.isStart[0]][this.isStart[1]].status = 'start2'
-            this.nodes[this.isEnd[0]][this.isEnd[1]].status = 'target2'
+            generateVerticalRecursiveMaze(this);
         },
         resetboard() {
             if (this.mazeStillGenerating){
