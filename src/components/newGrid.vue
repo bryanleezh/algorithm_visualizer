@@ -120,7 +120,7 @@
 import {dijkstra, getNodesInShortestPathOrder, dfs} from './pathfindingAlgorithms/algos.js'
 import { recursiveDivisionMaze } from './pathfindingAlgorithms/mazeAlgo.js'
 import NavBar from './NavBar.vue';
-import { visualiseDijkstra, visualiseInstantDijkstra } from './GridMethods/dijkstraMethods.js';
+import { animateDijkstra, visualiseDijkstra, visualiseInstantDijkstra } from './GridMethods/dijkstraMethods.js';
 import AlgoVisualizerVue from '@/views/AlgoVisualizer.vue';
 import { generateHorizontalRecursiveMaze, generateVerticalRecursiveMaze } from './GridMethods/generateMazeMethods.js';
 import { visualiseDFS, visualiseInstantDFS } from './GridMethods/dfsMethods.js';
@@ -410,38 +410,7 @@ export default {
             visualiseDFS(this);
         },
         animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
-            for (let i = 0; i <= visitedNodesInOrder.length; i++) {
-                if (i == visitedNodesInOrder.length) {
-                    setTimeout(() => {
-                        for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-                            setTimeout(() => {
-                                const node = nodesInShortestPathOrder[i];
-                                let row = node.row
-                                let col = node.col
-                                if (this.nodes[row][col].status == 'visited' || this.nodes[row][col].status == 'visited2'){
-                                    this.nodes[row][col].status = 'shortest-path-right'
-                                }
-                            }, 25 * i);
-                        }
-                    }, 5 * i);
-                    return;
-                }
-                else {
-                    setTimeout(() => {
-                        const node = visitedNodesInOrder[i];
-                        let row = node.row
-                        let col = node.col
-                        if (this.nodes[row][col].status == 'norm') {
-                            if (this.castTwo){
-                                this.nodes[row][col].status = 'visited2'
-                            }
-                            else {
-                            this.nodes[row][col].status = 'visited'
-                            }
-                        }
-                    }, 5 * i);
-                }
-            }
+            animateDijkstra(this,  visitedNodesInOrder, nodesInShortestPathOrder);
         },
         instantDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
             for (let i = 0; i <= visitedNodesInOrder.length; i++) {

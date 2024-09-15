@@ -24,6 +24,7 @@ export function visualiseDFS(context) {
     context.algoDone = true;
 }
 
+// when character is grabbed and moved, visualise the algo again
 export function visualiseInstantDFS(context) {
     let startNode = [];
     let finishNode = [];
