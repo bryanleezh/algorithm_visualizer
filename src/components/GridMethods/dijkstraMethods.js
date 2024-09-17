@@ -1,4 +1,5 @@
 import { dijkstra, getNodesInShortestPathOrder } from '../pathfindingAlgorithms/algos';
+import { animateAlgo } from './boardMethods';
 
 export function visualiseDijkstra(context) {
     if (context.mazeStillGenerating) {
@@ -16,7 +17,7 @@ export function visualiseDijkstra(context) {
     context.visitedNodesInOrder = dijkstra(context.nodes2, startNode, finishNode);
     context.nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
 
-    context.animateDijkstra(context.visitedNodesInOrder, context.nodesInShortestPathOrder);
+    animateAlgo(context, context.visitedNodesInOrder, context.nodesInShortestPathOrder);
     
     context.visitedNodesInOrder = [];
     context.nodesInShortestPathOrder = [];
@@ -35,46 +36,10 @@ export function visualiseInstantDijkstra(context) {
 
     context.visitedNodesInOrder = dijkstra(context.nodes2, startNode, finishNode);
     context.nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    context.animateDijkstra(context.visitedNodesInOrder, context.nodesInShortestPathOrder);
+    animateAlgo(context, context.visitedNodesInOrder, context.nodesInShortestPathOrder);
     context.visitedNodesInOrder= [];
     context.nodesInShortestPathOrder = [];
 
     context.djikstraDone = true;
     context.algoDone = true;
-}
-
-// animate algorithm
-export function animateDijkstra(context, visitedNodesInOrder, nodesInShortestPathOrder) {
-    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
-        if (i == visitedNodesInOrder.length) {
-            setTimeout(() => {
-                for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-                    setTimeout(() => {
-                        const node = nodesInShortestPathOrder[i];
-                        let row = node.row
-                        let col = node.col
-                        if (context.nodes[row][col].status == 'visited' || context.nodes[row][col].status == 'visited2'){
-                            context.nodes[row][col].status = 'shortest-path-right'
-                        }
-                    }, 25 * i);
-                }
-            }, 5 * i);
-            return;
-        }
-        else {
-            setTimeout(() => {
-                const node = visitedNodesInOrder[i];
-                let row = node.row
-                let col = node.col
-                if (context.nodes[row][col].status == 'norm') {
-                    if (context.castTwo){
-                        context.nodes[row][col].status = 'visited2'
-                    }
-                    else {
-                    context.nodes[row][col].status = 'visited'
-                    }
-                }
-            }, 5 * i);
-        }
-    }
 }

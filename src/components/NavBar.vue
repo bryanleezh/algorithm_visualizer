@@ -12,7 +12,7 @@
             <button class="btn navbar-btn me-auto" @click="visualiseDijkstra">Dijkstra</button>
           </li>
           <li class="nav-item">
-            <button class="btn navbar-btn me-auto" @click="visualiseDFS">DFS</button>
+            <button class="btn navbar-btn me-auto" @click="visualiseDFS(false)">DFS</button>
           </li>
           <li class="nav-item">
             <button class="btn navbar-btn me-auto" @click="resetboard">Clear All</button>
@@ -41,8 +41,8 @@
             visualiseDijkstra() {
                 this.$emit('visualiseDijkstra');
             },
-            visualiseDFS() {
-                this.$emit('visualiseDFS');
+            visualiseDFS(isBoardValidated) {
+                this.$emit('visualiseDFS', isBoardValidated);
             },
             resetboard() {
                 this.$emit('resetboard');

@@ -120,10 +120,11 @@
 import {dijkstra, getNodesInShortestPathOrder, dfs} from './pathfindingAlgorithms/algos.js'
 import { recursiveDivisionMaze } from './pathfindingAlgorithms/mazeAlgo.js'
 import NavBar from './NavBar.vue';
-import { animateDijkstra, visualiseDijkstra, visualiseInstantDijkstra } from './GridMethods/dijkstraMethods.js';
+import { visualiseDijkstra, visualiseInstantDijkstra } from './GridMethods/dijkstraMethods.js';
 import AlgoVisualizerVue from '@/views/AlgoVisualizer.vue';
 import { generateHorizontalRecursiveMaze, generateVerticalRecursiveMaze } from './GridMethods/generateMazeMethods.js';
 import { visualiseDFS, visualiseInstantDFS } from './GridMethods/dfsMethods.js';
+import { boardValidation } from './GridMethods/boardMethods.js';
 
 export default {
     data() {
@@ -245,7 +246,7 @@ export default {
                         }
                         if(this.dfsDone){
                             this.removepaths()
-                            this.visualiseInstantDFS()
+                            this.visualiseDFS(true);
                         }
                     }
                     else {
@@ -272,7 +273,7 @@ export default {
                             }
                             if(this.dfsDone){
                                 this.removepaths()
-                                this.visualiseInstantDFS()
+                                this.visualiseDFS(true);
                             }
                         }
                         else{
@@ -298,7 +299,7 @@ export default {
                             }
                             if(this.dfsDone){
                                 this.removepaths()
-                                this.visualiseInstantDFS()
+                                this.visualiseDFS(true);
                             }
                         }
                         
@@ -321,7 +322,7 @@ export default {
                         }
                         if(this.dfsDone){
                             this.removepaths()
-                            this.visualiseInstantDFS()
+                            this.visualiseDFS(true);
                         }
                     }
                     else {
@@ -348,7 +349,7 @@ export default {
                             }
                             if(this.dfsDone){
                                 this.removepaths()
-                                this.visualiseInstantDFS()
+                                this.visualiseDFS(true);
                             }
                         }
                         else {
@@ -374,7 +375,7 @@ export default {
                             }
                             if(this.dfsDone){
                                 this.removepaths()
-                                this.visualiseInstantDFS()
+                                this.visualiseDFS(true);
                             }
                         }
                     }
@@ -403,14 +404,14 @@ export default {
         visualiseDijkstra(){
             visualiseDijkstra(this);
         },
-        visualiseInstantDFS(){
-            visualiseInstantDFS(this);
-        },
-        visualiseDFS(){
+        visualiseDFS(isBoardValidated){
+            if (!isBoardValidated) {
+                if (!boardValidation(this)) {
+                    console.log("board not validated");
+                    return
+                };
+            }
             visualiseDFS(this);
-        },
-        animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
-            animateDijkstra(this,  visitedNodesInOrder, nodesInShortestPathOrder);
         },
         instantDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
             for (let i = 0; i <= visitedNodesInOrder.length; i++) {
