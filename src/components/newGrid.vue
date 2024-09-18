@@ -16,7 +16,7 @@
     
     <table :id="this.boardGrid">
         <tr v-for="(nodesCol, rowIdx) of this.nodes" :key="rowIdx" :id="`row-${rowIdx}`">
-            <td v-for="(nodeObj, colIdx) of nodesCol" :key="colIdx" :id="`${rowIdx}-${colIdx}`" :class="`${nodeObj.status}`" @mouseleave="movingAwayElements(`${rowIdx}`,`${colIdx}`)" @mouseover="movingElements(`${rowIdx}`,`${colIdx}`)" @mousedown="createwall(`${rowIdx}`,`${colIdx}`)" @mouseup="stopwall(`${rowIdx}`,`${colIdx}`)" @mouseenter="morewalls(`${rowIdx}`,`${colIdx}`)">
+            <td v-for="(nodeObj, colIdx) of nodesCol" :key="colIdx" :id="`${rowIdx}-${colIdx}`" :class="`${nodeObj.status}`" @mouseleave="replaceCharacterStatus(`${rowIdx}`,`${colIdx}`)" @mouseover="grabCharacter(`${rowIdx}`,`${colIdx}`)" @mousedown="createwall(`${rowIdx}`,`${colIdx}`)" @mouseup="stopwall(`${rowIdx}`,`${colIdx}`)" @mouseenter="morewalls(`${rowIdx}`,`${colIdx}`)">
             </td>
         </tr>
     </table>
@@ -158,7 +158,7 @@ export default {
         NavBar
     },
     methods: {
-        movingElements(row, col){
+        grabCharacter(row, col){
             if (this.castTwo){
                 if (this.startgrabbed){
                     this.nodes[row][col].status = 'movingstart2'
@@ -176,7 +176,8 @@ export default {
                 }
             }
         },
-        movingAwayElements(row, col){
+        // replace start or end nodes with the status of cell with the status of back grid
+        replaceCharacterStatus(row, col){
             if (this.startgrabbed && this.nodes[row][col].status!='target'){
                 this.nodes[row][col].status = this.nodes2[row][col].status
             }
@@ -184,33 +185,40 @@ export default {
                 this.nodes[row][col].status = this.nodes2[row][col].status
             }
         },
+        // if nothing is clicked at all
         createwall(row,col){
-            this.usedboard = true
-            this.boardGrid = 'whitebackground'
+            this.usedboard = true;
+            this.boardGrid = 'whitebackground';
             if (this.clickedstatus == false) {
                 this.clickedstatus = true;
+                // if clicked is a normal cell, change it to wall
                 if (this.nodes[row][col].status == 'norm') {
-                    this.nodes[row][col].status = 'wall'
-                    this.nodes2[row][col].status = 'wall'
+                    this.nodes[row][col].status = 'wall';
+                    this.nodes2[row][col].status = 'wall';
                 }
+                // if clicked is a wall, change it to empty cell
                 else if (this.nodes[row][col].status == 'wall') {
-                    this.nodes[row][col].status = 'norm'
-                    this.nodes2[row][col].status = 'norm'
+                    this.nodes[row][col].status = 'norm';
+                    this.nodes2[row][col].status = 'norm';
                 }
+                // if clicked is start node, change it to empty cell
                 else if (this.nodes2[row][col].status == 'start'){
-                    this.startgrabbed = true
-                    this.nodes[row][col].status = 'norm'
-                    this.nodes2[row][col].status = 'norm'
+                    this.startgrabbed = true;
+                    this.nodes[row][col].status = 'norm';
+                    this.nodes2[row][col].status = 'norm';
                 }
+                // if clicked is end node, change it to empty cell
                 else if (this.nodes2[row][col].status == 'target'){
-                    this.endgrabbed = true
-                    this.nodes[row][col].status = 'norm'
-                    this.nodes2[row][col].status = 'norm'
+                    this.endgrabbed = true;
+                    this.nodes[row][col].status = 'norm';
+                    this.nodes2[row][col].status = 'norm';
                 }
             }
             
         },
+        // if click and hold, continue creating/removing more walls
         morewalls(row,col){
+            // if not grabbing start or end node,  change the held down cell to wall
             if (this.startgrabbed == false && this.endgrabbed == false) {
                 if (this.clickedstatus == true ) {
                     if (this.nodes[row][col].status == 'norm') {
