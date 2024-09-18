@@ -2,14 +2,6 @@ import { dfs, getNodesInShortestPathOrder } from "../pathfindingAlgorithms/algos
 import { animateAlgo } from "./boardMethods"
 
 export function visualiseDFS(context) {
-    // if (context.mazeStillGenerating){
-    //     alert("Maze is still generating! Please wait!")
-    //     return
-    // }
-    // if (context.algoDone){
-    //     alert('Algo has been visualised!')
-    //     return
-    // }
     let startNode = [];
     let finishNode = [];
     

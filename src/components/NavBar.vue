@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse mb-2 mb-lg-0" style="margin-right: 0px;" id="navbarNav">
         <ul class="navbar-nav d-flex align-items-center" style="background-color:#5d91fe">
           <li class="nav-item">
-            <button class="btn navbar-btn me-auto" @click="visualiseDijkstra">Dijkstra</button>
+            <button class="btn navbar-btn me-auto" @click="visualiseDijkstra(false)">Dijkstra</button>
           </li>
           <li class="nav-item">
             <button class="btn navbar-btn me-auto" @click="visualiseDFS(false)">DFS</button>
@@ -38,8 +38,8 @@
             Tutorial,
         },
         methods: {
-            visualiseDijkstra() {
-                this.$emit('visualiseDijkstra');
+            visualiseDijkstra(isBoardValidated) {
+                this.$emit('visualiseDijkstra', isBoardValidated);
             },
             visualiseDFS(isBoardValidated) {
                 this.$emit('visualiseDFS', isBoardValidated);

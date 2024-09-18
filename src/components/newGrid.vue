@@ -120,7 +120,7 @@
 import {dijkstra, getNodesInShortestPathOrder, dfs} from './pathfindingAlgorithms/algos.js'
 import { recursiveDivisionMaze } from './pathfindingAlgorithms/mazeAlgo.js'
 import NavBar from './NavBar.vue';
-import { visualiseDijkstra, visualiseInstantDijkstra } from './GridMethods/dijkstraMethods.js';
+import { visualiseDijkstra } from './GridMethods/dijkstraMethods.js';
 import AlgoVisualizerVue from '@/views/AlgoVisualizer.vue';
 import { generateHorizontalRecursiveMaze, generateVerticalRecursiveMaze } from './GridMethods/generateMazeMethods.js';
 import { visualiseDFS, visualiseInstantDFS } from './GridMethods/dfsMethods.js';
@@ -242,7 +242,7 @@ export default {
                         this.isStart = [row,col]
                         if(this.djikstraDone){
                             this.removepaths()
-                            this.visualiseInstantDijkstra()
+                            this.visualiseDijkstra(true)
                         }
                         if(this.dfsDone){
                             this.removepaths()
@@ -269,7 +269,7 @@ export default {
                             this.nodes2[row][col].status = 'target'
                             if(this.djikstraDone){
                                 this.removepaths()
-                                this.visualiseInstantDijkstra()
+                                this.visualiseDijkstra(true);
                             }
                             if(this.dfsDone){
                                 this.removepaths()
@@ -295,7 +295,7 @@ export default {
                             this.nodes2[row][col].status = 'target'
                             if(this.djikstraDone){
                                 this.removepaths()
-                                this.visualiseInstantDijkstra()
+                                this.visualiseDijkstra(true);
                             }
                             if(this.dfsDone){
                                 this.removepaths()
@@ -318,7 +318,7 @@ export default {
                         this.isEnd = [row,col]
                         if(this.djikstraDone){
                             this.removepaths()
-                            this.visualiseInstantDijkstra()
+                            this.visualiseDijkstra(true);
                         }
                         if(this.dfsDone){
                             this.removepaths()
@@ -345,7 +345,7 @@ export default {
                             this.nodes2[row][col].status = 'start'
                             if(this.djikstraDone){
                                 this.removepaths()
-                                this.visualiseInstantDijkstra()
+                                this.visualiseDijkstra(true);
                             }
                             if(this.dfsDone){
                                 this.removepaths()
@@ -371,7 +371,7 @@ export default {
                             this.nodes2[row][col].status = 'start'
                             if(this.djikstraDone){
                                 this.removepaths()
-                                this.visualiseInstantDijkstra()
+                                this.visualiseDijkstra(true);
                             }
                             if(this.dfsDone){
                                 this.removepaths()
@@ -398,57 +398,23 @@ export default {
                 }
             }
         },
-        visualiseInstantDijkstra(){
-            visualiseInstantDijkstra(this);
-        },
-        visualiseDijkstra(){
+        visualiseDijkstra(isBoardValidated){
+            if (!isBoardValidated) {
+                if (!boardValidation(this)) {
+                    console.log("board not validated");
+                    return;
+                }
+            }
             visualiseDijkstra(this);
         },
         visualiseDFS(isBoardValidated){
             if (!isBoardValidated) {
                 if (!boardValidation(this)) {
                     console.log("board not validated");
-                    return
+                    return;
                 };
             }
             visualiseDFS(this);
-        },
-        instantDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
-            for (let i = 0; i <= visitedNodesInOrder.length; i++) {
-                if (i == visitedNodesInOrder.length) {
-                    setTimeout (() => {
-                        for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-                            setTimeout(() => {
-                                const node = nodesInShortestPathOrder[i];
-                                let row = node.row
-                                let col = node.col
-                                if (this.nodes2[row][col].status != 'start' && this.nodes2[row][col].status != 'target'){
-                                    this.nodes[row][col].status = 'shortest-path-right'
-                                }
-                            }, 25 * i)
-                            
-                        }
-                    }, 5 * i)
-
-                    return
-                    
-                }
-                else {
-                    setTimeout(() => {
-                        const node = visitedNodesInOrder[i];
-                        let row = node.row
-                        let col = node.col
-                        if (this.nodes2[row][col].status != 'start' && this.nodes2[row][col].status != 'target') {
-                            if (this.castTwo){
-                                this.nodes[row][col].status = 'visited2'
-                            }
-                            else {
-                                this.nodes[row][col].status = 'visited'
-                            }
-                        }
-                    }, 5 * i)
-                }
-            }
         },
         generateHorizontalRecursiveMaze() {
             generateHorizontalRecursiveMaze(this);
