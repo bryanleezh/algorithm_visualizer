@@ -35,10 +35,7 @@ export function animateAlgo(context, visitedNodesInOrder, nodesInShortestPathOrd
     }
 }
 
-export function animateVisitedNodes() {
-
-}
-
+// validate if board is ready for starting an algorithm
 export function boardValidation(context) {
     if (context.mazeStillGenerating){
         window.alert("Maze is still generating! Please wait!")
@@ -71,6 +68,7 @@ export function grabCharacter(context, row, col) {
     }
 }
 
+// replace start or end nodes with the status of cell with the status of back grid
 export function replaceCharacterStatus(context, row, col) {
     if (context.startgrabbed && context.nodes[row][col].status!='target'){
         context.nodes[row][col].status = context.nodes2[row][col].status
@@ -80,7 +78,8 @@ export function replaceCharacterStatus(context, row, col) {
     }
 }
 
-export function validateRestartAlgo(context) {
+// validate if algo has been completed and restarts again
+function restartAlgo(context) {
     if(context.djikstraDone){
         removePaths(context)
         context.visualiseDijkstra(true);
@@ -91,6 +90,7 @@ export function validateRestartAlgo(context) {
     }
 }
 
+// if nothing is clicked at all, edit cell according to status
 export function editCell(context, row, col) {
     context.usedboard = true;
     context.boardGrid = 'whitebackground';
@@ -121,6 +121,7 @@ export function editCell(context, row, col) {
     }
 }
 
+// if click and hold, continue creating/removing more walls
 export function editMouseDownCell(context, row, col) {
     // if not grabbing start or end node,  change the held down cell to wall, vice versa
     if (context.startgrabbed == false && context.endgrabbed == false) {
@@ -140,6 +141,9 @@ export function editMouseDownCell(context, row, col) {
     }
 }
 
+// on mouse up, 
+// drop start or end node if grabbed
+// stop placing/ removing more walls
 export  function editMouseUpCell(context, row, col) {
     if (context.clickedstatus == true) {
         // drop start node at current position
@@ -156,7 +160,7 @@ export  function editMouseUpCell(context, row, col) {
                 context.startgrabbed = false
                 context.isStart = [row,col]
 
-                validateRestartAlgo(context)
+                restartAlgo(context)
             }
             // if start or end node is overlapped by each other
             else {
@@ -179,7 +183,7 @@ export  function editMouseUpCell(context, row, col) {
                     }
                     context.nodes2[row][col].status = 'target'
 
-                    validateRestartAlgo(context)
+                    restartAlgo(context)
                 }
                 // place start node at col - 1
                 else{
@@ -200,7 +204,7 @@ export  function editMouseUpCell(context, row, col) {
                     }
                     context.nodes2[row][col].status = 'target'
 
-                    validateRestartAlgo(context)
+                    restartAlgo(context)
                 }
             }
         }
@@ -217,7 +221,7 @@ export  function editMouseUpCell(context, row, col) {
                 context.endgrabbed = false
                 context.isEnd = [row,col]
 
-                validateRestartAlgo(context)
+                restartAlgo(context)
             }
             // if start or end node is overlapped by each other
             else {
@@ -240,7 +244,7 @@ export  function editMouseUpCell(context, row, col) {
                     }
                     context.nodes2[row][col].status = 'start'
 
-                    validateRestartAlgo(context)
+                    restartAlgo(context)
                 }
                 else {
                     if (context.castTwo){
@@ -260,7 +264,7 @@ export  function editMouseUpCell(context, row, col) {
                     }
                     context.nodes2[row][col].status = 'start'
 
-                    validateRestartAlgo(context)
+                    restartAlgo(context)
                 }
             }
         }
