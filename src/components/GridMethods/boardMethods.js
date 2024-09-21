@@ -45,3 +45,32 @@ export function boardValidation(context) {
     }
     return true;
 }
+
+// if character is being grabbed, the status of the current grid coords will become movingstart so that user can see where character is moving to
+export function grabCharacter(context, row, col) {
+    if (context.castTwo){
+        if (context.startgrabbed){
+            context.nodes[row][col].status = 'movingstart2'
+        }
+        else if (context.endgrabbed){
+            context.nodes[row][col].status = 'movingend2'
+        }
+    }
+    else {
+        if (context.startgrabbed){
+            context.nodes[row][col].status = 'movingstart'
+        }
+        else if (context.endgrabbed){
+            context.nodes[row][col].status = 'movingend'
+        }
+    }
+}
+
+export function replaceCharacterStatus(context, row, col) {
+    if (context.startgrabbed && context.nodes[row][col].status!='target'){
+        context.nodes[row][col].status = context.nodes2[row][col].status
+    }
+    else if(context.endgrabbed && context.nodes[row][col].status!='start'){
+        context.nodes[row][col].status = context.nodes2[row][col].status
+    }
+}

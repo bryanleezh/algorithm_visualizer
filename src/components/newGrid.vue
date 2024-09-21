@@ -124,7 +124,7 @@ import { visualiseDijkstra } from './GridMethods/dijkstraMethods.js';
 import AlgoVisualizerVue from '@/views/AlgoVisualizer.vue';
 import { generateHorizontalRecursiveMaze, generateVerticalRecursiveMaze } from './GridMethods/generateMazeMethods.js';
 import { visualiseDFS, visualiseInstantDFS } from './GridMethods/dfsMethods.js';
-import { boardValidation } from './GridMethods/boardMethods.js';
+import { boardValidation, grabCharacter, replaceCharacterStatus } from './GridMethods/boardMethods.js';
 
 export default {
     data() {
@@ -159,31 +159,11 @@ export default {
     },
     methods: {
         grabCharacter(row, col){
-            if (this.castTwo){
-                if (this.startgrabbed){
-                    this.nodes[row][col].status = 'movingstart2'
-                }
-                else if (this.endgrabbed){
-                    this.nodes[row][col].status = 'movingend2'
-                }
-            }
-            else {
-                if (this.startgrabbed){
-                    this.nodes[row][col].status = 'movingstart'
-                }
-                else if (this.endgrabbed){
-                    this.nodes[row][col].status = 'movingend'
-                }
-            }
+            grabCharacter(this, row, col)
         },
         // replace start or end nodes with the status of cell with the status of back grid
         replaceCharacterStatus(row, col){
-            if (this.startgrabbed && this.nodes[row][col].status!='target'){
-                this.nodes[row][col].status = this.nodes2[row][col].status
-            }
-            else if(this.endgrabbed && this.nodes[row][col].status!='start'){
-                this.nodes[row][col].status = this.nodes2[row][col].status
-            }
+            replaceCharacterStatus(this, row, col)
         },
         // if nothing is clicked at all
         createwall(row,col){
