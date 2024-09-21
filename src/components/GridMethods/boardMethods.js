@@ -1,19 +1,20 @@
 // animate algorithm
 export function animateAlgo(context, visitedNodesInOrder, nodesInShortestPathOrder) {
+    const time = 10;
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
         if (i == visitedNodesInOrder.length) {
             setTimeout(() => {
-                for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+                for (let j = 0; j < nodesInShortestPathOrder.length; j++) {
                     setTimeout(() => {
-                        const node = nodesInShortestPathOrder[i];
+                        const node = nodesInShortestPathOrder[j];
                         let row = node.row
                         let col = node.col
                         if (context.nodes[row][col].status == 'visited' || context.nodes[row][col].status == 'visited2'){
                             context.nodes[row][col].status = 'shortest-path-right'
                         }
-                    }, 25 * i);
+                    }, time * 5 * j);
                 }
-            }, 5 * i);
+            }, time * i);
             return;
         }
         else {
@@ -29,9 +30,13 @@ export function animateAlgo(context, visitedNodesInOrder, nodesInShortestPathOrd
                     context.nodes[row][col].status = 'visited'
                     }
                 }
-            }, 5 * i);
+            }, time * i);
         }
     }
+}
+
+export function animateVisitedNodes() {
+
 }
 
 export function boardValidation(context) {
@@ -284,6 +289,7 @@ export function resetBoard(context) {
         alert("Maze still generating!! Please wait for maze to finish");
         return
     }
+    // once board is not empty, board will reset to base config
     if (context.usedboard == true || context.mazeGenerated == true || context.algoDone == true){
         context.nodes2 = []
         for (let row = 0; row < context.rows; row++){
@@ -292,6 +298,7 @@ export function resetBoard(context) {
             for (let col = 0; col <context.cols; col++){
                 var currentNode = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null}
                 var currentNode2 = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null}
+                // Assign node status to start node
                 if (row == context.isStart[0] && col == context.isStart[1]){
                     if (context.castTwo){
                         currentNode.status = 'start2'
@@ -301,6 +308,7 @@ export function resetBoard(context) {
                     }
                     currentNode2.status = 'start'
                 }
+                // Assign node status to end node
                 else if (row == context.isEnd[0] && col == context.isEnd[1]){
                     if (context.castTwo){
                         currentNode.status = 'target2'
@@ -316,12 +324,12 @@ export function resetBoard(context) {
             context.nodes[row] = currentRow
             context.nodes2.push(currentRow2)
         }
+        // reset board config flags
         context.mazeGenerated = false
         context.usedboard = false
         context.mazewalls = []
         context.djikstraDone = false
         context.dfsDone = false
         context.algoDone = false
-
     }
 }
