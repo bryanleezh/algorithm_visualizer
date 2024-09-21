@@ -125,176 +125,179 @@
 </template>
 <script>
 
-import NavBar from './NavBar.vue';
-import { visualiseDijkstra } from './GridMethods/dijkstraMethods.js';
-import { generateHorizontalRecursiveMaze, generateVerticalRecursiveMaze } from './GridMethods/generateMazeMethods.js';
-import { visualiseDFS} from './GridMethods/dfsMethods.js';
-import { boardValidation, editCell, editMouseDownCell, editMouseUpCell, grabCharacter, replaceCharacterStatus, resetBoard } from './GridMethods/boardMethods.js';
+    import NavBar from './NavBar.vue';
+    import { visualiseDijkstra } from './GridMethods/dijkstraMethods.js';
+    import { generateHorizontalRecursiveMaze, generateVerticalRecursiveMaze } from './GridMethods/generateMazeMethods.js';
+    import { visualiseDFS} from './GridMethods/dfsMethods.js';
+    import { boardValidation, editCell, editMouseDownCell, editMouseUpCell, grabCharacter, replaceCharacterStatus, resetBoard } from './GridMethods/boardMethods.js';
 
-export default {
-    data() {
-        return {
-            boardGrid: 'default',
-            width: null,
-            rows: 31,
-            cols: null,
-            isStart: null,
-            isEnd: null,
-            nodes: {},
-            nodes2: [],
-            clickedstatus: false,
-            startgrabbed: false,
-            endgrabbed:false,
-            visitedNodesInOrder: [],
-            nodesInShortestPathOrder: [],
-            mazewalls: [],
-            usedboard: false,
-            mazeGenerated: false,
-            mazeStillGenerating: false,
-            djikstraDone: false,
-            dfsDone: false,
-            algoDone: false,
-            castTwo: false,
-            
-        }
-    },
-    name: 'boardGrid',
-    components: {
-        NavBar
-    },
-    methods: {
-        // if character is being grabbed, the status of the current grid coords will become movingstart so that user can see where character is moving to
-        grabCharacter(row, col){
-            grabCharacter(this, row, col);
-        },
-        // replace start or end nodes with the status of cell with the status of back grid
-        replaceCharacterStatus(row, col){
-            replaceCharacterStatus(this, row, col);
-        },
-        // if nothing is clicked at all
-        editCell(row,col){
-            editCell(this, row, col);
-        },
-        // if click and hold, continue creating/removing more walls
-        editMouseDownCell(row,col){
-            editMouseDownCell(this, row, col);
-        },
-        // on mouse up, 
-        // drop start or end node if grabbed
-        // stop placing/ removing more walls
-        editMouseUpCell(row,col){
-            editMouseUpCell(this, row, col)
-        },
-        visualiseDijkstra(isBoardValidated){
-            if (!isBoardValidated) {
-                if (!boardValidation(this)) {
-                    console.log("board not validated");
-                    return;
-                }
+    export default {
+        data() {
+            return {
+                boardGrid: 'default',
+                // board config
+                width: null,
+                rows: 31,
+                cols: null,
+                isStart: null,
+                isEnd: null,
+                nodes: {},
+                nodes2: [],
+                usedboard: false,
+                // start + end nodes flags
+                castTwo: false,
+                clickedstatus: false,
+                startgrabbed: false,
+                endgrabbed:false,
+                // algos
+                visitedNodesInOrder: [],
+                nodesInShortestPathOrder: [],
+                djikstraDone: false,
+                dfsDone: false,
+                algoDone: false,
+                // maze
+                mazewalls: [],
+                mazeGenerated: false,
+                mazeStillGenerating: false,
             }
-            visualiseDijkstra(this);
         },
-        visualiseDFS(isBoardValidated){
-            if (!isBoardValidated) {
-                if (!boardValidation(this)) {
-                    console.log("board not validated");
-                    return;
-                };
-            }
-            visualiseDFS(this);
+        name: 'boardGrid',
+        components: {
+            NavBar
         },
-        generateHorizontalRecursiveMaze() {
-            generateHorizontalRecursiveMaze(this);
-        },
-        generateVerticalRecursiveMaze() {
-            generateVerticalRecursiveMaze(this);
-        },
-        resetboard() {
-            resetBoard(this);
-        }
-    },
-    // create grid, calculating all the columns needed and coords of start and end node
-    async created() {
-        this.width = window.innerWidth
-        this.cols = Math.floor(this.width*0.9/25)
-        this.isStart = [16,Math.floor(this.cols/5)]
-        this.isEnd = [16,Math.floor(this.cols*4/5)]
-        for (let row = 0; row < this.rows; row++){
-            const currentRow = {}
-            const currentRow2 = []
-            for (let col = 0; col <this.cols; col++){
-                var currentNode = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null}
-                var currentNode2 = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null}
-                if (row == this.isStart[0] && col == this.isStart[1]){
-                    currentNode.status = 'start'
-                    currentNode2.status = 'start'
+        methods: {
+            // if character is being grabbed, the status of the current grid coords will become movingstart so that user can see where character is moving to
+            grabCharacter(row, col){
+                grabCharacter(this, row, col);
+            },
+            // replace start or end nodes with the status of cell with the status of back grid
+            replaceCharacterStatus(row, col){
+                replaceCharacterStatus(this, row, col);
+            },
+            // if nothing is clicked at all
+            editCell(row,col){
+                editCell(this, row, col);
+            },
+            // if click and hold, continue creating/removing more walls
+            editMouseDownCell(row,col){
+                editMouseDownCell(this, row, col);
+            },
+            // on mouse up, 
+            // drop start or end node if grabbed
+            // stop placing/ removing more walls
+            editMouseUpCell(row,col){
+                editMouseUpCell(this, row, col)
+            },
+            visualiseDijkstra(isBoardValidated){
+                if (!isBoardValidated) {
+                    if (!boardValidation(this)) {
+                        console.log("board not validated");
+                        return;
+                    }
                 }
-                else if (row == this.isEnd[0] && col == this.isEnd[1]){
-                    currentNode.status = 'target'
-                    currentNode2.status = 'target'
+                visualiseDijkstra(this);
+            },
+            visualiseDFS(isBoardValidated){
+                if (!isBoardValidated) {
+                    if (!boardValidation(this)) {
+                        console.log("board not validated");
+                        return;
+                    };
                 }
-                currentRow[col] = currentNode
-                currentRow2.push(currentNode2)
+                visualiseDFS(this);
+            },
+            generateHorizontalRecursiveMaze() {
+                generateHorizontalRecursiveMaze(this);
+            },
+            generateVerticalRecursiveMaze() {
+                generateVerticalRecursiveMaze(this);
+            },
+            resetboard() {
+                resetBoard(this);
             }
-            this.nodes[row] = currentRow
-            this.nodes2.push(currentRow2)
-        }
-    },
-    watch: {
-        // reset grid + calculate how many columns to fit based on screen size
-        cols(){
-            this.isStart = [16,Math.floor(this.cols/5)];
-            this.isEnd = [16,Math.floor(this.cols*4/5)];
-            const intermediate = {};
-            const intermediate2 = [];
+        },
+        // create grid, calculating all the columns needed and coords of start and end node
+        async created() {
+            this.width = window.innerWidth
+            this.cols = Math.floor(this.width*0.9/25)
+            this.isStart = [16,Math.floor(this.cols/5)]
+            this.isEnd = [16,Math.floor(this.cols*4/5)]
             for (let row = 0; row < this.rows; row++){
-                const currentRow = {};
-                const currentRow2 = [];
+                const currentRow = {}
+                const currentRow2 = []
                 for (let col = 0; col <this.cols; col++){
-                    var currentNode = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null};
-                    var currentNode2 = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null};
+                    var currentNode = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null}
+                    var currentNode2 = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null}
                     if (row == this.isStart[0] && col == this.isStart[1]){
-                        if (this.castTwo){
-                            currentNode.status = 'start2';
-                        }
-                        else{
-                            currentNode.status = 'start';
-                        }
-                        currentNode2.status = 'start';
+                        currentNode.status = 'start'
+                        currentNode2.status = 'start'
                     }
                     else if (row == this.isEnd[0] && col == this.isEnd[1]){
-                        if (this.castTwo){
-                            currentNode.status = 'target2';
-                        }
-                        else{
-                            currentNode.status = 'target';
-                        }
-                        currentNode2.status = 'target';
+                        currentNode.status = 'target'
+                        currentNode2.status = 'target'
                     }
-                    currentRow[col] = currentNode;
-                    currentRow2.push(currentNode2);
+                    currentRow[col] = currentNode
+                    currentRow2.push(currentNode2)
                 }
-                intermediate[row] = currentRow;
-                intermediate2.push(currentRow2);
+                this.nodes[row] = currentRow
+                this.nodes2.push(currentRow2)
             }
-            this.nodes = intermediate;
-            this.nodes2 = intermediate2;
-            this.mazeGenerated = false;
-            this.usedboard = false;
-            this.mazewalls = [];
-            this.djikstraDone = false;
-            this.dfsDone = false;
-            this.algoDone = false;
         },
-    },
-    mounted() {
-        // resize window and calculate number of columns
-        window.onresize = () => {
-            this.width = window.innerWidth
-            this.cols = Math.floor(0.9*window.innerWidth/25)
+        watch: {
+            // reset grid + calculate how many columns to fit based on screen size
+            cols(){
+                this.isStart = [16,Math.floor(this.cols/5)];
+                this.isEnd = [16,Math.floor(this.cols*4/5)];
+                const intermediate = {};
+                const intermediate2 = [];
+                for (let row = 0; row < this.rows; row++){
+                    const currentRow = {};
+                    const currentRow2 = [];
+                    for (let col = 0; col <this.cols; col++){
+                        var currentNode = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null};
+                        var currentNode2 = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null};
+                        if (row == this.isStart[0] && col == this.isStart[1]){
+                            if (this.castTwo){
+                                currentNode.status = 'start2';
+                            }
+                            else{
+                                currentNode.status = 'start';
+                            }
+                            currentNode2.status = 'start';
+                        }
+                        else if (row == this.isEnd[0] && col == this.isEnd[1]){
+                            if (this.castTwo){
+                                currentNode.status = 'target2';
+                            }
+                            else{
+                                currentNode.status = 'target';
+                            }
+                            currentNode2.status = 'target';
+                        }
+                        currentRow[col] = currentNode;
+                        currentRow2.push(currentNode2);
+                    }
+                    intermediate[row] = currentRow;
+                    intermediate2.push(currentRow2);
+                }
+                this.nodes = intermediate;
+                this.nodes2 = intermediate2;
+                this.mazeGenerated = false;
+                this.usedboard = false;
+                this.mazewalls = [];
+                this.djikstraDone = false;
+                this.dfsDone = false;
+                this.algoDone = false;
+            },
+        },
+        mounted() {
+            // resize window and calculate number of columns
+            window.onresize = () => {
+                this.width = window.innerWidth
+                this.cols = Math.floor(0.9*window.innerWidth/25)
+            }
         }
-    }
-};
+    };
 </script>
 <style scoped>
     @import '@/assets/styling/algoStyler.css';

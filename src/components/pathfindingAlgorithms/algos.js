@@ -58,10 +58,12 @@ export function dfs(grid, startNode, finishNode, rows, cols){
 
   return visitedNodesInOrder
 }
+
 export function dijkstra(grid, startNode, finishNode) {
   const visitedNodesInOrder = [];
   startNode.distance = 0;
   const unvisitedNodes = getAllNodes(grid);
+  // continues running until there are no unvisited nodes left
   while (!!unvisitedNodes.length) {
     sortNodesByDistance(unvisitedNodes);
     const closestNode = unvisitedNodes.shift();
@@ -73,15 +75,18 @@ export function dijkstra(grid, startNode, finishNode) {
     if (closestNode.distance === Infinity) return visitedNodesInOrder;
     closestNode.isVisited = true;
     visitedNodesInOrder.push(closestNode);
+    // If we are at the finish node, we can stop.
     if (closestNode === finishNode) return visitedNodesInOrder;
     updateUnvisitedNeighbors(closestNode, grid);
   }
 }
 
+// sorts nodes basaed on distance which is part of each node's properties
 function sortNodesByDistance(unvisitedNodes) {
   unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
 }
 
+// updates the distance of each neighbor of the current node by 1
 function updateUnvisitedNeighbors(node, grid) {
   const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
   for (const neighbor of unvisitedNeighbors) {
@@ -90,6 +95,7 @@ function updateUnvisitedNeighbors(node, grid) {
   }
 }
 
+// return neighbouring nodes that has not been visited
 function getUnvisitedNeighbors(node, grid) {
   const neighbors = [];
   const {col, row} = node;
@@ -100,6 +106,7 @@ function getUnvisitedNeighbors(node, grid) {
   return neighbors.filter(neighbor => !neighbor.isVisited);
 }
 
+// get all nodes in the grid
 function getAllNodes(grid) {
   const nodes = [];
   for (const row of grid) {
@@ -110,8 +117,8 @@ function getAllNodes(grid) {
   return nodes;
 }
 
-// Backtracks from the finishNode to find the shortest path.
-// Only works when called *after* the dijkstra method above.
+// Backtracks from the finishNode to find the shortest path using the previousNode property in each node
+// Only works when called *after* the pathfinding algo is ran
 export function getNodesInShortestPathOrder(finishNode) {
   const nodesInShortestPathOrder = [];
   let currentNode = finishNode;
@@ -121,5 +128,3 @@ export function getNodesInShortestPathOrder(finishNode) {
   }
   return nodesInShortestPathOrder;
 }
-
-
