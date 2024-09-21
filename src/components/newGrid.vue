@@ -16,7 +16,15 @@
     
     <table :id="this.boardGrid">
         <tr v-for="(nodesCol, rowIdx) of this.nodes" :key="rowIdx" :id="`row-${rowIdx}`">
-            <td v-for="(nodeObj, colIdx) of nodesCol" :key="colIdx" :id="`${rowIdx}-${colIdx}`" :class="`${nodeObj.status}`" @mouseleave="replaceCharacterStatus(`${rowIdx}`,`${colIdx}`)" @mouseover="grabCharacter(`${rowIdx}`,`${colIdx}`)" @mousedown="createwall(`${rowIdx}`,`${colIdx}`)" @mouseup="stopwall(`${rowIdx}`,`${colIdx}`)" @mouseenter="morewalls(`${rowIdx}`,`${colIdx}`)">
+            <td 
+                v-for="(nodeObj, colIdx) of nodesCol" :key="colIdx" :id="`${rowIdx}-${colIdx}`" 
+                :class="`${nodeObj.status}`" 
+                @mouseleave="replaceCharacterStatus(`${rowIdx}`,`${colIdx}`)" 
+                @mouseover="grabCharacter(`${rowIdx}`,`${colIdx}`)" 
+                @mousedown="editCell(`${rowIdx}`,`${colIdx}`)" 
+                @mouseup="editMouseUpCell(`${rowIdx}`,`${colIdx}`)" 
+                @mouseenter="editMouseDownCell(`${rowIdx}`,`${colIdx}`)"
+            >
             </td>
         </tr>
     </table>
@@ -117,14 +125,11 @@
 </template>
 <script>
 
-import {dijkstra, getNodesInShortestPathOrder, dfs} from './pathfindingAlgorithms/algos.js'
-import { recursiveDivisionMaze } from './pathfindingAlgorithms/mazeAlgo.js'
 import NavBar from './NavBar.vue';
 import { visualiseDijkstra } from './GridMethods/dijkstraMethods.js';
-import AlgoVisualizerVue from '@/views/AlgoVisualizer.vue';
 import { generateHorizontalRecursiveMaze, generateVerticalRecursiveMaze } from './GridMethods/generateMazeMethods.js';
-import { visualiseDFS, visualiseInstantDFS } from './GridMethods/dfsMethods.js';
-import { boardValidation, grabCharacter, replaceCharacterStatus } from './GridMethods/boardMethods.js';
+import { visualiseDFS} from './GridMethods/dfsMethods.js';
+import { boardValidation, editCell, editMouseDownCell, editMouseUpCell, grabCharacter, replaceCharacterStatus, resetBoard } from './GridMethods/boardMethods.js';
 
 export default {
     data() {
@@ -158,233 +163,27 @@ export default {
         NavBar
     },
     methods: {
+        // if character is being grabbed, the status of the current grid coords will become movingstart so that user can see where character is moving to
         grabCharacter(row, col){
-            grabCharacter(this, row, col)
+            grabCharacter(this, row, col);
         },
         // replace start or end nodes with the status of cell with the status of back grid
         replaceCharacterStatus(row, col){
-            replaceCharacterStatus(this, row, col)
+            replaceCharacterStatus(this, row, col);
         },
         // if nothing is clicked at all
-        createwall(row,col){
-            this.usedboard = true;
-            this.boardGrid = 'whitebackground';
-            if (this.clickedstatus == false) {
-                this.clickedstatus = true;
-                // if clicked is a normal cell, change it to wall
-                if (this.nodes[row][col].status == 'norm') {
-                    this.nodes[row][col].status = 'wall';
-                    this.nodes2[row][col].status = 'wall';
-                }
-                // if clicked is a wall, change it to empty cell
-                else if (this.nodes[row][col].status == 'wall') {
-                    this.nodes[row][col].status = 'norm';
-                    this.nodes2[row][col].status = 'norm';
-                }
-                // if clicked is start node, change it to empty cell
-                else if (this.nodes2[row][col].status == 'start'){
-                    this.startgrabbed = true;
-                    this.nodes[row][col].status = 'norm';
-                    this.nodes2[row][col].status = 'norm';
-                }
-                // if clicked is end node, change it to empty cell
-                else if (this.nodes2[row][col].status == 'target'){
-                    this.endgrabbed = true;
-                    this.nodes[row][col].status = 'norm';
-                    this.nodes2[row][col].status = 'norm';
-                }
-            }
-            
+        editCell(row,col){
+            editCell(this, row, col);
         },
         // if click and hold, continue creating/removing more walls
-        morewalls(row,col){
-            // if not grabbing start or end node,  change the held down cell to wall
-            if (this.startgrabbed == false && this.endgrabbed == false) {
-                if (this.clickedstatus == true ) {
-                    if (this.nodes[row][col].status == 'norm') {
-                        this.nodes[row][col].status = 'wall'
-                        this.nodes2[row][col].status = 'wall'
-                    }
-                    else if (this.nodes[row][col].status == 'wall' ) {
-                        this.nodes[row][col].status = 'norm'
-                        this.nodes2[row][col].status = 'norm'
-                    }            
-                }
-            }
-            else {
-                console.log("start or end is grabbed")
-            }
+        editMouseDownCell(row,col){
+            editMouseDownCell(this, row, col);
         },
-        stopwall(row,col){
-            if (this.clickedstatus == true) {
-                if (this.startgrabbed == true) {
-                    if (this.nodes2[row][col].status != 'target') {
-                        if (this.castTwo){
-                            this.nodes[row][col].status = 'start2'
-                        }
-                        else {
-                            this.nodes[row][col].status = 'start'
-                        }
-                        this.nodes2[row][col].status = 'start'
-                        this.startgrabbed = false
-                        this.isStart = [row,col]
-                        if(this.djikstraDone){
-                            this.removepaths()
-                            this.visualiseDijkstra(true)
-                        }
-                        if(this.dfsDone){
-                            this.removepaths()
-                            this.visualiseDFS(true);
-                        }
-                    }
-                    else {
-                        if (col == 0) {
-                            if (this.castTwo){
-                                this.nodes[row][1].status = 'start2'
-                            }
-                            else {
-                                this.nodes[row][1].status = 'start'
-                            }
-                            this.nodes2[row][1].status = 'start'
-                            this.startgrabbed = false
-                            this.isStart = [row,1]
-                            if (this.castTwo){
-                                this.nodes[row][col].status = 'target2'
-                            }
-                            else {
-                                this.nodes[row][col].status = 'target'
-                            }
-                            this.nodes2[row][col].status = 'target'
-                            if(this.djikstraDone){
-                                this.removepaths()
-                                this.visualiseDijkstra(true);
-                            }
-                            if(this.dfsDone){
-                                this.removepaths()
-                                this.visualiseDFS(true);
-                            }
-                        }
-                        else{
-                            if (this.castTwo){
-                                this.nodes[row][col - 1].status = 'start2'
-                            }
-                            else {
-                                this.nodes[row][col - 1].status = 'start'
-                            }
-                            this.nodes2[row][col - 1].status = 'start'
-                            this.startgrabbed = false
-                            this.isStart = [row,col - 1]
-                            if (this.castTwo){
-                            this.nodes[row][col].status = 'target2'
-                            }
-                            else {
-                                this.nodes[row][col].status = 'target'
-                            }
-                            this.nodes2[row][col].status = 'target'
-                            if(this.djikstraDone){
-                                this.removepaths()
-                                this.visualiseDijkstra(true);
-                            }
-                            if(this.dfsDone){
-                                this.removepaths()
-                                this.visualiseDFS(true);
-                            }
-                        }
-                        
-                    }
-                }
-                else if (this.endgrabbed == true ) {
-                    if (this.nodes2[row][col].status != "start") {
-                        if (this.castTwo){
-                            this.nodes[row][col].status = 'target2'
-                        }
-                        else {
-                            this.nodes[row][col].status = 'target'
-                        }
-                        this.nodes2[row][col].status = 'target'
-                        this.endgrabbed = false
-                        this.isEnd = [row,col]
-                        if(this.djikstraDone){
-                            this.removepaths()
-                            this.visualiseDijkstra(true);
-                        }
-                        if(this.dfsDone){
-                            this.removepaths()
-                            this.visualiseDFS(true);
-                        }
-                    }
-                    else {
-                        if (col == 0) {
-                            if (this.castTwo){
-                                this.nodes[row][1].status = 'target2'
-                            }
-                            else {
-                                this.nodes[row][1].status = 'target'
-                            }
-                            this.nodes2[row][1].status = 'target'
-                            this.endgrabbed = false
-                            this.isEnd = [row,1]
-                            if (this.castTwo){
-                            this.nodes[row][col].status = 'start2'
-                            }
-                            else {
-                                this.nodes[row][col].status = 'start'
-                            }
-                            this.nodes2[row][col].status = 'start'
-                            if(this.djikstraDone){
-                                this.removepaths()
-                                this.visualiseDijkstra(true);
-                            }
-                            if(this.dfsDone){
-                                this.removepaths()
-                                this.visualiseDFS(true);
-                            }
-                        }
-                        else {
-                            if (this.castTwo){
-                                this.nodes[row][col-1].status = 'target2'
-                            }
-                            else {
-                                this.nodes[row][col-1].status = 'target'
-                            }
-                            this.nodes2[row][col - 1].status = 'target'
-                            this.endgrabbed = false
-                            this.isEnd = [row,col - 1]
-                            if (this.castTwo){
-                            this.nodes[row][col].status = 'start2'
-                            }
-                            else {
-                                this.nodes[row][col].status = 'start'
-                            }
-                            this.nodes2[row][col].status = 'start'
-                            if(this.djikstraDone){
-                                this.removepaths()
-                                this.visualiseDijkstra(true);
-                            }
-                            if(this.dfsDone){
-                                this.removepaths()
-                                this.visualiseDFS(true);
-                            }
-                        }
-                    }
-                }
-                this.clickedstatus = false;
-                this.boardGrid = 'default'
-            }
-        },
-        removepaths(){
-            for (let i = 0; i < this.rows; i++){
-                for (let j = 0; j < this.cols; j++){
-                    
-                    if (this.nodes2[i][j].status !== 'start' && this.nodes2[i][j].status !== 'target' && this.nodes2[i][j].status !== 'wall'){
-                        this.nodes2[i][j].status = 'norm'
-                        this.nodes[i][j].status = 'norm'
-                    }
-                    this.nodes2[i][j].distance = Infinity
-                    this.nodes2[i][j].isVisited = null
-                    this.nodes2[i][j].previousNode = null
-                }
-            }
+        // on mouse up, 
+        // drop start or end node if grabbed
+        // stop placing/ removing more walls
+        editMouseUpCell(row,col){
+            editMouseUpCell(this, row, col)
         },
         visualiseDijkstra(isBoardValidated){
             if (!isBoardValidated) {
@@ -411,52 +210,10 @@ export default {
             generateVerticalRecursiveMaze(this);
         },
         resetboard() {
-            if (this.mazeStillGenerating){
-                alert("maze still generating!! Please wait for maze to finish")
-                return
-            }
-            if (this.usedboard == true || this.mazeGenerated == true || this.algoDone == true){
-                this.nodes2 = []
-                for (let row = 0; row < this.rows; row++){
-                    const currentRow = {}
-                    const currentRow2 = []
-                    for (let col = 0; col <this.cols; col++){
-                        var currentNode = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null}
-                        var currentNode2 = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null}
-                        if (row == this.isStart[0] && col == this.isStart[1]){
-                            if (this.castTwo){
-                                currentNode.status = 'start2'
-                            }
-                            else{
-                                currentNode.status = 'start'
-                            }
-                            currentNode2.status = 'start'
-                        }
-                        else if (row == this.isEnd[0] && col == this.isEnd[1]){
-                            if (this.castTwo){
-                                currentNode.status = 'target2'
-                            }
-                            else{
-                                currentNode.status = 'target'
-                            }
-                            currentNode2.status = 'target'
-                        }
-                        currentRow[col] = currentNode
-                        currentRow2.push(currentNode2)
-                    }
-                    this.nodes[row] = currentRow
-                    this.nodes2.push(currentRow2)
-                }
-                this.mazeGenerated = false
-                this.usedboard = false
-                this.mazewalls = []
-                this.djikstraDone = false
-                this.dfsDone = false
-                this.algoDone = false
-
-            }
+            resetBoard(this);
         }
     },
+    // create grid, calculating all the columns needed and coords of start and end node
     async created() {
         this.width = window.innerWidth
         this.cols = Math.floor(this.width*0.9/25)
@@ -484,57 +241,58 @@ export default {
         }
     },
     watch: {
+        // reset grid + calculate how many columns to fit based on screen size
         cols(){
-            this.isStart = [16,Math.floor(this.cols/5)]
-            this.isEnd = [16,Math.floor(this.cols*4/5)]
-            const intermediate = {}
-            const intermediate2 = []
+            this.isStart = [16,Math.floor(this.cols/5)];
+            this.isEnd = [16,Math.floor(this.cols*4/5)];
+            const intermediate = {};
+            const intermediate2 = [];
             for (let row = 0; row < this.rows; row++){
-                const currentRow = {}
-                const currentRow2 = []
+                const currentRow = {};
+                const currentRow2 = [];
                 for (let col = 0; col <this.cols; col++){
-                    var currentNode = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null}
-                    var currentNode2 = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null}
+                    var currentNode = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null};
+                    var currentNode2 = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null};
                     if (row == this.isStart[0] && col == this.isStart[1]){
                         if (this.castTwo){
-                            currentNode.status = 'start2'
+                            currentNode.status = 'start2';
                         }
                         else{
-                            currentNode.status = 'start'
+                            currentNode.status = 'start';
                         }
-                        currentNode2.status = 'start'
+                        currentNode2.status = 'start';
                     }
                     else if (row == this.isEnd[0] && col == this.isEnd[1]){
                         if (this.castTwo){
-                            currentNode.status = 'target2'
+                            currentNode.status = 'target2';
                         }
                         else{
-                            currentNode.status = 'target'
+                            currentNode.status = 'target';
                         }
-                        currentNode2.status = 'target'
+                        currentNode2.status = 'target';
                     }
-                    currentRow[col] = currentNode
-                    currentRow2.push(currentNode2)
+                    currentRow[col] = currentNode;
+                    currentRow2.push(currentNode2);
                 }
-                intermediate[row] = currentRow
-                intermediate2.push(currentRow2)
+                intermediate[row] = currentRow;
+                intermediate2.push(currentRow2);
             }
-            this.nodes = intermediate
-            this.nodes2 = intermediate2
-            this.mazeGenerated = false
-            this.usedboard = false
-            this.mazewalls = []
-            this.djikstraDone = false
-            this.dfsDone = false
-            this.algoDone = false
-            },
+            this.nodes = intermediate;
+            this.nodes2 = intermediate2;
+            this.mazeGenerated = false;
+            this.usedboard = false;
+            this.mazewalls = [];
+            this.djikstraDone = false;
+            this.dfsDone = false;
+            this.algoDone = false;
+        },
     },
     mounted() {
+        // resize window and calculate number of columns
         window.onresize = () => {
             this.width = window.innerWidth
             this.cols = Math.floor(0.9*window.innerWidth/25)
         }
-        // this.generateHorizontalRecursiveMaze()
     }
 };
 </script>
