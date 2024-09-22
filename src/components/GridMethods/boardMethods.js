@@ -48,7 +48,8 @@ export function boardValidation(context) {
     return true;
 }
 
-// if character is being grabbed, the status of the current grid coords will become movingstart so that user can see where character is moving to
+// if character is being grabbed, the status of the current grid coords will  
+// become movingstart so that user can see where character is moving to
 export function grabCharacter(context, row, col) {
     if (context.castTwo){
         if (context.startgrabbed){
@@ -78,17 +79,7 @@ export function replaceCharacterStatus(context, row, col) {
     }
 }
 
-// validate if algo has been completed and restarts again
-function restartAlgo(context) {
-    if(context.djikstraDone){
-        removePaths(context)
-        context.visualiseDijkstra(true);
-    }
-    if(context.dfsDone){
-        removePaths(context)
-        context.visualiseDFS(true);
-    }
-}
+
 
 // if nothing is clicked at all, edit cell according to status
 export function editCell(context, row, col) {
@@ -273,21 +264,7 @@ export  function editMouseUpCell(context, row, col) {
     }
 }
 
-function removePaths(context) {
-    for (let i = 0; i < context.rows; i++){
-        for (let j = 0; j < context.cols; j++){
-            
-            if (context.nodes2[i][j].status !== 'start' && context.nodes2[i][j].status !== 'target' && context.nodes2[i][j].status !== 'wall'){
-                context.nodes2[i][j].status = 'norm'
-                context.nodes[i][j].status = 'norm'
-            }
-            context.nodes2[i][j].distance = Infinity
-            context.nodes2[i][j].isVisited = null
-            context.nodes2[i][j].previousNode = null
-        }
-    }
-}
-
+// reset entire board to empty
 export function resetBoard(context) {
     if (context.mazeStillGenerating){
         alert("Maze still generating!! Please wait for maze to finish");
@@ -335,5 +312,33 @@ export function resetBoard(context) {
         context.djikstraDone = false
         context.dfsDone = false
         context.algoDone = false
+    }
+}
+
+// reset all visitedNodes status back to 'normal'
+function removePaths(context) {
+    for (let i = 0; i < context.rows; i++){
+        for (let j = 0; j < context.cols; j++){
+            
+            if (context.nodes2[i][j].status !== 'start' && context.nodes2[i][j].status !== 'target' && context.nodes2[i][j].status !== 'wall'){
+                context.nodes2[i][j].status = 'norm'
+                context.nodes[i][j].status = 'norm'
+            }
+            context.nodes2[i][j].distance = Infinity
+            context.nodes2[i][j].isVisited = null
+            context.nodes2[i][j].previousNode = null
+        }
+    }
+}
+
+// validate if algo has been completed and restarts again
+function restartAlgo(context) {
+    if(context.djikstraDone){
+        removePaths(context)
+        context.visualiseDijkstra(true);
+    }
+    if(context.dfsDone){
+        removePaths(context)
+        context.visualiseDFS(true);
     }
 }
