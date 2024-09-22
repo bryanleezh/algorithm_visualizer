@@ -2,6 +2,7 @@ import { recursiveDivisionMaze } from "../pathfindingAlgorithms/mazeAlgo";
 
 export function generateHorizontalRecursiveMaze(context) {
     context.boardGrid = 'whitebackground';
+    // if grid  is empty, generate a new maze
     if (context.mazeGenerated == false && context.algoDone == false){
         context.mazeStillGenerating = true;
         console.log("maze generating");
@@ -34,6 +35,7 @@ export function generateHorizontalRecursiveMaze(context) {
             context.boardGrid = 'default';
         }, context.mazewalls.length * 10);
     }
+    // otherwise, reset board and generate the maze
     else {
         context.resetboard();
         context.generateHorizontalRecursiveMaze();
