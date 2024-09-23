@@ -1,6 +1,11 @@
 // animate algorithm
 export function animateAlgo(context, visitedNodesInOrder, nodesInShortestPathOrder) {
-    const time = 10;
+    let time = 10;
+    if (context.visualisationSpeed === "medium") {
+        time = 25;
+    } else if (context.visualisationSpeed === "slow") {
+        time = 50;
+    }
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
         if (i == visitedNodesInOrder.length) {
             setTimeout(() => {
@@ -12,7 +17,7 @@ export function animateAlgo(context, visitedNodesInOrder, nodesInShortestPathOrd
                         if (context.nodes[row][col].status == 'visited' || context.nodes[row][col].status == 'visited2'){
                             context.nodes[row][col].status = 'shortest-path-right'
                         }
-                    }, time * 5 * j);
+                    }, 50 * j);
                 }
             }, time * i);
             return;

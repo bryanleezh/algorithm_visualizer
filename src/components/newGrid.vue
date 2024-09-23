@@ -11,6 +11,7 @@
             @resetboard="resetboard"
             @generateHorizontalRecursiveMaze="generateHorizontalRecursiveMaze"
             @generateVerticalRecursiveMaze="generateVerticalRecursiveMaze"
+            @changeVisualisationSpeed="chanzgeVisualisationSpeed"
         />
     </div>
     
@@ -155,6 +156,7 @@
                 djikstraDone: false,
                 dfsDone: false,
                 algoDone: false,
+                visualisationSpeed: "fast",
                 // maze
                 mazewalls: [],
                 mazeGenerated: false,
@@ -211,6 +213,16 @@
             },
             generateVerticalRecursiveMaze() {
                 generateVerticalRecursiveMaze(this);
+            },
+            chanzgeVisualisationSpeed(speed) {
+                console.log(speed);
+                if (speed === "fast") {
+                    this.visualisationSpeed = "fast"
+                } else if (speed === "medium") {
+                    this.visualisationSpeed = "medium"
+                } else {
+                    this.visualisationSpeed = "slow"
+                }
             },
             resetboard() {
                 resetBoard(this);

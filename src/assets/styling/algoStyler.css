@@ -30,7 +30,6 @@
 }
 
 #navbar {
-    /* position: absolute; */
     list-style: none;
     text-decoration: none;
     width: 100%;
@@ -117,6 +116,11 @@ li {
     text-align: center;
 }
 
+.selectlabel {
+  border: none;
+  background-color: #5d91fe;
+}
+
 /* homepage styling */
 .card{
   color: black;
@@ -172,10 +176,13 @@ body {
   padding-bottom: 30px;
   padding-top: 100px;
   color: black;
+  display: flex;
   text-align: center;
+  align-items: center;
   justify-content: center;
   width: 100%;
 }
+
 #third {
   font-family: 'integral';
   /* padding-bottom: 30px; */

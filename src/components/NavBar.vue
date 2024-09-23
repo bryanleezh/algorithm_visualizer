@@ -23,6 +23,14 @@
           <li class="nav-item">
             <button class="btn navbar-btn me-auto" @click="generateVerticalRecursiveMaze">Random Recursive Maze (Vertical)</button>
           </li>
+          <li class="nav-item ms-3 d-inline">
+            <span class="me-1 d-inline">Speed:</span>
+            <select id="visualisationSpeed" class="selectlabel d-inline" @change="changeVisualisationSpeed">
+              <option value="fast">Fast</option>
+              <option value="medium">Medium</option>
+              <option value="slow">Slow</option>
+            </select>
+          </li>
         </ul>
       </div>
     </div>
@@ -52,7 +60,11 @@
             },
             generateVerticalRecursiveMaze() {
                 this.$emit('generateVerticalRecursiveMaze');
-            }
+            },
+            changeVisualisationSpeed(event) {
+              const speed = event.target.value;
+              this.$emit('changeVisualisationSpeed', speed);
+            },
         }
     }
 </script>
