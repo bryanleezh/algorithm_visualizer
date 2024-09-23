@@ -188,7 +188,7 @@
             // drop start or end node if grabbed
             // stop placing/ removing more walls
             editMouseUpCell(row,col){
-                editMouseUpCell(this, row, col)
+                editMouseUpCell(this, row, col);
             },
             visualiseDijkstra(isBoardValidated){
                 if (!isBoardValidated) {
@@ -217,11 +217,11 @@
             chanzgeVisualisationSpeed(speed) {
                 console.log(speed);
                 if (speed === "fast") {
-                    this.visualisationSpeed = "fast"
+                    this.visualisationSpeed = "fast";
                 } else if (speed === "medium") {
-                    this.visualisationSpeed = "medium"
+                    this.visualisationSpeed = "medium";
                 } else {
-                    this.visualisationSpeed = "slow"
+                    this.visualisationSpeed = "slow";
                 }
             },
             resetboard() {
@@ -230,29 +230,31 @@
         },
         // create grid, calculating all the columns needed and coords of start and end node
         async created() {
-            this.width = window.innerWidth
-            this.cols = Math.floor(this.width*0.9/25)
-            this.isStart = [16,Math.floor(this.cols/5)]
-            this.isEnd = [16,Math.floor(this.cols*4/5)]
+            this.width = window.innerWidth;
+            this.cols = Math.floor(this.width*0.9/25);
+            this.isStart = [16,Math.floor(this.cols/5)];
+            this.isEnd = [16,Math.floor(this.cols*4/5)];
+            // TODO: Can refactor to rebuild grid function
+            // rebuild grid to base config
             for (let row = 0; row < this.rows; row++){
-                const currentRow = {}
-                const currentRow2 = []
+                const currentRow = {};
+                const currentRow2 = [];
                 for (let col = 0; col <this.cols; col++){
-                    var currentNode = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null}
-                    var currentNode2 = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null}
+                    var currentNode = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null};
+                    var currentNode2 = {col: col, row: row, status: 'norm', distance: Infinity, previousNode: null};
                     if (row == this.isStart[0] && col == this.isStart[1]){
-                        currentNode.status = 'start'
-                        currentNode2.status = 'start'
+                        currentNode.status = 'start';
+                        currentNode2.status = 'start';
                     }
                     else if (row == this.isEnd[0] && col == this.isEnd[1]){
-                        currentNode.status = 'target'
-                        currentNode2.status = 'target'
+                        currentNode.status = 'target';
+                        currentNode2.status = 'target';
                     }
-                    currentRow[col] = currentNode
-                    currentRow2.push(currentNode2)
+                    currentRow[col] = currentNode;
+                    currentRow2.push(currentNode2);
                 }
-                this.nodes[row] = currentRow
-                this.nodes2.push(currentRow2)
+                this.nodes[row] = currentRow;
+                this.nodes2.push(currentRow2);
             }
         },
         watch: {
@@ -260,6 +262,8 @@
             cols(){
                 this.isStart = [16,Math.floor(this.cols/5)];
                 this.isEnd = [16,Math.floor(this.cols*4/5)];
+                // TODO: Can refactor to rebuild grid function
+                // rebuild grid to base config
                 const intermediate = {};
                 const intermediate2 = [];
                 for (let row = 0; row < this.rows; row++){

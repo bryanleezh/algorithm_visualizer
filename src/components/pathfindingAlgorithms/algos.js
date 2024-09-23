@@ -1,64 +1,74 @@
+export function dfs(grid, startNode, finishNode, rows, cols){
+  const stack = [];
+  const visitedNodesInOrder = [];
+  startNode.isVisited = true;
+  var dfsRow = Number(startNode.row);
+  var dfsCol = Number(startNode.col);
+  var previousNode = startNode;
+
+  // check neighbouring nodes in 4 directions
+  if (dfsCol > 0 && grid[dfsRow][dfsCol - 1].isVisited == null && grid[dfsRow][dfsCol - 1].status !== "wall"){
+    grid[dfsRow][dfsCol - 1].previousNode = previousNode;
+    stack.push(grid[dfsRow][dfsCol - 1]);
+  }
+  if (dfsRow < rows - 1 && grid[dfsRow + 1][dfsCol].isVisited == null && grid[dfsRow + 1][dfsCol].status !== "wall"){
+    grid[dfsRow + 1][dfsCol].previousNode = previousNode;
+    stack.push(grid[dfsRow + 1][dfsCol]);
+  }
+  if (dfsCol < cols - 1 && grid[dfsRow][dfsCol + 1].isVisited == null && grid[dfsRow][dfsCol + 1].status !== "wall"){
+    grid[dfsRow][dfsCol + 1].previousNode = previousNode;
+    stack.push(grid[dfsRow][dfsCol + 1]);
+  }
+  if (dfsRow > 0 && grid[dfsRow - 1][dfsCol].isVisited == null && grid[dfsRow - 1][dfsCol].status !== "wall"){
+    grid[dfsRow - 1][dfsCol].previousNode = previousNode;
+    stack.push(grid[dfsRow - 1][dfsCol]);
+  }
+
+  while (stack.length > 0){
+    const newNode = stack.pop();
+    // dfs complete
+    if (newNode.row == finishNode.row && newNode.col == finishNode.col){
+      visitedNodesInOrder.push(newNode);
+      return visitedNodesInOrder;
+    }
+    dfsRow = newNode.row;
+    dfsCol = newNode.col;
+
+    // if node is a wall or has already been visited, sklp
+    if (newNode.isVisited || newNode.status == 'wall') continue;
+
+    // visit node
+    grid[dfsRow][dfsCol].isVisited = true;
+    const currentNode = grid[dfsRow][dfsCol];
+    visitedNodesInOrder.push(currentNode);
+    previousNode = currentNode;
+
+    // check neighbouring nodes in 4 directions
+    if (dfsCol > 0 && grid[dfsRow][dfsCol - 1].isVisited == null && grid[dfsRow][dfsCol - 1].status !== "wall"){
+      grid[dfsRow][dfsCol - 1].previousNode = previousNode;
+      stack.push(grid[dfsRow][dfsCol - 1]);
+    }
+    if (dfsRow < rows - 1 && grid[dfsRow + 1][dfsCol].isVisited == null && grid[dfsRow + 1][dfsCol].status !== "wall"){
+      grid[dfsRow + 1][dfsCol].previousNode = previousNode;
+      stack.push(grid[dfsRow + 1][dfsCol]);
+    }
+    if (dfsCol < cols - 1 && grid[dfsRow][dfsCol + 1].isVisited == null && grid[dfsRow][dfsCol + 1].status !== "wall"){
+      grid[dfsRow][dfsCol + 1].previousNode = previousNode;
+      stack.push(grid[dfsRow][dfsCol + 1]);
+    }
+    if (dfsRow > 0 && grid[dfsRow - 1][dfsCol].isVisited == null && grid[dfsRow - 1][dfsCol].status !== "wall"){
+      grid[dfsRow - 1][dfsCol].previousNode = previousNode;
+      stack.push(grid[dfsRow - 1][dfsCol]);
+    }
+  }
+
+  return visitedNodesInOrder;
+}
+
 // Performs Dijkstra's algorithm; returns *all* nodes in the order
 // in which they were visited. Also makes nodes point back to their
 // previous node, effectively allowing us to compute the shortest path
 // by backtracking from the finish node.
-export function dfs(grid, startNode, finishNode, rows, cols){
-  const stack = []
-  const visitedNodesInOrder = []
-  startNode.isVisited = true
-  var dfsRow = Number(startNode.row)
-  var dfsCol = Number(startNode.col)
-  var previousNode = startNode
-  if (dfsCol > 0 && grid[dfsRow][dfsCol - 1].isVisited == null && grid[dfsRow][dfsCol - 1].status !== "wall"){
-    grid[dfsRow][dfsCol - 1].previousNode = previousNode
-    stack.push(grid[dfsRow][dfsCol - 1])
-  }
-  if (dfsRow < rows - 1 && grid[dfsRow + 1][dfsCol].isVisited == null && grid[dfsRow + 1][dfsCol].status !== "wall"){
-    grid[dfsRow + 1][dfsCol].previousNode = previousNode
-    stack.push(grid[dfsRow + 1][dfsCol])
-  }
-  if (dfsCol < cols - 1 && grid[dfsRow][dfsCol + 1].isVisited == null && grid[dfsRow][dfsCol + 1].status !== "wall"){
-    grid[dfsRow][dfsCol + 1].previousNode = previousNode
-    stack.push(grid[dfsRow][dfsCol + 1])
-  }
-  if (dfsRow > 0 && grid[dfsRow - 1][dfsCol].isVisited == null && grid[dfsRow - 1][dfsCol].status !== "wall"){
-    grid[dfsRow - 1][dfsCol].previousNode = previousNode
-    stack.push(grid[dfsRow - 1][dfsCol])
-  }
-  while (stack.length > 0){
-    const newNode = stack.pop()
-    if (newNode.row == finishNode.row && newNode.col == finishNode.col){
-      visitedNodesInOrder.push(newNode)
-      return visitedNodesInOrder
-    }
-    dfsRow = newNode.row
-    dfsCol = newNode.col
-    if (newNode.isVisited || newNode.status == 'wall') continue
-    grid[dfsRow][dfsCol].isVisited = true
-    const currentNode = grid[dfsRow][dfsCol]
-    visitedNodesInOrder.push(currentNode)
-    previousNode = currentNode
-    if (dfsCol > 0 && grid[dfsRow][dfsCol - 1].isVisited == null && grid[dfsRow][dfsCol - 1].status !== "wall"){
-      grid[dfsRow][dfsCol - 1].previousNode = previousNode
-      stack.push(grid[dfsRow][dfsCol - 1])
-    }
-    if (dfsRow < rows - 1 && grid[dfsRow + 1][dfsCol].isVisited == null && grid[dfsRow + 1][dfsCol].status !== "wall"){
-      grid[dfsRow + 1][dfsCol].previousNode = previousNode
-      stack.push(grid[dfsRow + 1][dfsCol])
-    }
-    if (dfsCol < cols - 1 && grid[dfsRow][dfsCol + 1].isVisited == null && grid[dfsRow][dfsCol + 1].status !== "wall"){
-      grid[dfsRow][dfsCol + 1].previousNode = previousNode
-      stack.push(grid[dfsRow][dfsCol + 1])
-    }
-    if (dfsRow > 0 && grid[dfsRow - 1][dfsCol].isVisited == null && grid[dfsRow - 1][dfsCol].status !== "wall"){
-      grid[dfsRow - 1][dfsCol].previousNode = previousNode
-      stack.push(grid[dfsRow - 1][dfsCol])
-    }
-  }
-
-  return visitedNodesInOrder
-}
-
 export function dijkstra(grid, startNode, finishNode) {
   const visitedNodesInOrder = [];
   startNode.distance = 0;
@@ -68,7 +78,6 @@ export function dijkstra(grid, startNode, finishNode) {
     sortNodesByDistance(unvisitedNodes);
     const closestNode = unvisitedNodes.shift();
     // If we encounter a wall, we skip it.
-    // if (closestNode.isWall) continue;
     if (closestNode.status == 'wall') continue;
     // If the closest node is at a distance of infinity,
     // we must be trapped and should therefore stop.
